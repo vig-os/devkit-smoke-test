@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.3.5] - TBD
+
 ### Changed
 
 - **Consolidate Renovate dependency updates** ([#550](https://github.com/vig-os/devcontainer/issues/550))
