@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 0.3.9-rc1** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -19,11 +21,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.3.8](https://github.com/vig-os/devcontainer-smoke-test/releases/tag/0.3.8) - 2026-06-22
+## [0.3.9] - TBD
 
-### Changed
+### Fixed
 
-- **Smoke-test deploy of 0.3.8** -- automated devcontainer release-pipeline validation; no functional changes
+- **Stop promote-release cleanup from orphaning RC draft pre-releases** ([#623](https://github.com/vig-os/devcontainer/issues/623))
+  - The cleanup step deleted RC draft pre-releases with `gh release delete <tag>`, which cannot resolve a draft, then deleted the git RC tag anyway — stranding the draft and making it undiscoverable on later runs (the loop was seeded from git tags)
+  - Cleanup now enumerates RC draft pre-releases from the releases list, deletes them by release id, removes a git RC tag only when no release is attached, and fails loudly if any RC draft survives — also reclaiming drafts whose tag was already removed by an earlier partial run
+
+## [0.3.8](https://github.com/vig-os/devcontainer/releases/tag/0.3.8) - 2026-06-22
 
 ### Fixed
 
