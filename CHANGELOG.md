@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 0.3.9** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -19,11 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.3.9] - TBD
-
-### Changed
-
-- **Smoke-test deploy of 0.3.9-rc1** -- automated devcontainer release-pipeline validation; no functional changes
+## [0.3.9](https://github.com/vig-os/devcontainer/releases/tag/0.3.9) - 2026-06-23
 
 ### Fixed
 
