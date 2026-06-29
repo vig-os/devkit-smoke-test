@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Relaxed `requires-python` to `>=3.14,<3.15`** ([vig-os/devcontainer#737](https://github.com/vig-os/devcontainer/issues/737))
+  - The exact `==3.14.6` pin was unsatisfiable against the Nix devcontainer image's pinned CPython (3.14.4), so `uv sync` failed in-container. Matches the devcontainer's own range-pin convention; `uv.lock` remains the reproducibility anchor (`uv sync --frozen` stays consistent).
+
 ### Security
 
 ## [0.3.9](https://github.com/vig-os/devcontainer-smoke-test/releases/tag/0.3.9) - 2026-06-23
