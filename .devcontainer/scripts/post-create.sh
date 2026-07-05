@@ -14,7 +14,7 @@ set -euo pipefail
 
 echo "Running post-create setup..."
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 PROJECT_ROOT="/workspace/devcontainer_smoke_test"
 
 if [ ! -d "$PROJECT_ROOT" ]; then
