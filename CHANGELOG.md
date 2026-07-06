@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 0.4.0** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -21,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.4.0](https://github.com/vig-os/devcontainer/releases/tag/0.4.0) - 2026-07-06
+## [0.4.0] - TBD
 
 ### Added
 
@@ -95,6 +93,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 0.4.0** -- automated devcontainer release-pipeline validation; no functional changes
 - **BREAKING for consumers — this release is the Nix publish-cutover** ([#639](https://github.com/vig-os/devcontainer/issues/639), [#625](https://github.com/vig-os/devcontainer/issues/625))
   - From this release on, the published image (`:latest` and every versioned tag) is the Nix-built image: pure-Nix userland with **no `apt`/`dpkg`**, a `docker → podman` shim (no Docker engine), and uv-managed CPython 3.14 (pin `requires-python` as a range, never an exact patch). See `docs/MIGRATION.md` for the full consumer contract
   - The final Debian-built release is **0.3.9**; it stays pullable indefinitely but frozen (no CVE fixes). Rollback/stay-behind: pin `DEVCONTAINER_VERSION=0.3.9` in the repo-root `.vig-os`
