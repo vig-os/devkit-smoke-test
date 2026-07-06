@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 0.4.0** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -19,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.4.0] - TBD
+## [0.4.0](https://github.com/vig-os/devcontainer/releases/tag/0.4.0) - 2026-07-06
 
 ### Added
 
@@ -93,7 +95,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 0.4.0-rc5** -- automated devcontainer release-pipeline validation; no functional changes
 - **BREAKING for consumers — this release is the Nix publish-cutover** ([#639](https://github.com/vig-os/devcontainer/issues/639), [#625](https://github.com/vig-os/devcontainer/issues/625))
   - From this release on, the published image (`:latest` and every versioned tag) is the Nix-built image: pure-Nix userland with **no `apt`/`dpkg`**, a `docker → podman` shim (no Docker engine), and uv-managed CPython 3.14 (pin `requires-python` as a range, never an exact patch). See `docs/MIGRATION.md` for the full consumer contract
   - The final Debian-built release is **0.3.9**; it stays pullable indefinitely but frozen (no CVE fixes). Rollback/stay-behind: pin `DEVCONTAINER_VERSION=0.3.9` in the repo-root `.vig-os`
@@ -183,6 +184,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **vulnix CVE scans survive `nvd.nist.gov` outages via a self-hosted NVD feed mirror** ([#870](https://github.com/vig-os/devcontainer/issues/870))
+  - `nvd.nist.gov` is chronically throttled/unstable (upstream `nix-community/vulnix#171`): cold scan runs crawled the full NVD year-feed set for tens of minutes and failed with `ReadTimeoutError`/`IncompleteRead`, blocking both the nightly gate and the release publish gate. A dedicated public mirror, [`vig-os/nvd-mirror`](https://github.com/vig-os/nvd-mirror), now downloads the NVD 2.0 feed files (`nvdcve-2.0-<6 years>.json.gz` + `modified`) with resumable retry, validates them, and serves them on GitHub Pages — the only job that talks to NVD
+  - `security-scan.yml` and the `release.yml` `vulnix-gate` now run `vulnix --mirror https://vig-os.github.io/nvd-mirror/`, fetching NVD data from a CDN-backed mirror instead of `nvd.nist.gov`, so an NVD outage can no longer fail a scan or block a release. The mirror also localizes the NVD-format dependency to one place should the feeds ever change
+- **Renovate changelog automation no longer self-triggers an empty-commit loop and keeps the workspace mirror in sync** ([#863](https://github.com/vig-os/devcontainer/issues/863))
+  - The changelog commit is pushed with a GitHub App token (which re-triggers workflows), but the build gated only on the PR author (permanently `renovate[bot]`) and never the pusher, and `commit-action` has no empty-diff guard — so the bot's own no-op commits fired fresh `synchronize` events without end (#862 accrued 150+ identical empty commits before the build was disabled by hand). The build now skips `synchronize` events raised by the changelog commit bot (`github.event.sender.login`), severing the loop
+  - The automation committed only root `CHANGELOG.md`, leaving the `scripts/manifest.toml` mirror `assets/workspace/.devcontainer/CHANGELOG.md` stale so the `sync-manifest` gate failed on every Renovate PR; the build now mirrors the verbatim copy and commits both files
 - **rc4 field-validation fix batch: direnv-mode commits, pipe-safe scripts, prune/typos/installer hardening** ([#859](https://github.com/vig-os/devcontainer/issues/859))
   - Scaffolded `.githooks/*` now use `#!/usr/bin/env bash` (hosts without `/bin/bash`, e.g. NixOS, could not run them) and accept the nix dev-shell (`IN_NIX_SHELL`) as a sanctioned commit environment — previously direnv-mode consumers could not commit at all (the guard demanded the container)
   - Restored the `${BASH_SOURCE[0]:-$0}` pipe-safety fallback in the scaffolded lifecycle scripts (`initialize`/`post-create`/`post-attach`/`version-check`) — a regression from the 0.3.x scaffold caught by a consumer's own regression tests
