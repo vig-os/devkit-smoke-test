@@ -379,15 +379,11 @@ all = [
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pandas" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
     { name = "scipy" },
 ]
 dev = [
     { name = "ipykernel" },
     { name = "jupyter" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
 ]
 science = [
     { name = "matplotlib" },
@@ -399,6 +395,8 @@ science = [
 [package.dev-dependencies]
 dev = [
     { name = "hatchling" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
     { name = "rich" },
 ]
 
@@ -410,8 +408,6 @@ requires-dist = [
     { name = "matplotlib", marker = "extra == 'science'", specifier = "==3.11.0" },
     { name = "numpy", marker = "extra == 'science'", specifier = "==2.5.1" },
     { name = "pandas", marker = "extra == 'science'", specifier = "==3.0.4" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = "==9.1.1" },
-    { name = "pytest-cov", marker = "extra == 'dev'", specifier = "==7.1.0" },
     { name = "scipy", marker = "extra == 'science'", specifier = "==1.18.0" },
 ]
 provides-extras = ["dev", "science", "all"]
@@ -419,6 +415,8 @@ provides-extras = ["dev", "science", "all"]
 [package.metadata.requires-dev]
 dev = [
     { name = "hatchling", specifier = "==1.30.1" },
+    { name = "pytest", specifier = "==9.1.1" },
+    { name = "pytest-cov", specifier = "==7.1.0" },
     { name = "rich", specifier = "==15.0.0" },
 ]
 
