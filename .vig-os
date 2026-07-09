@@ -7,7 +7,7 @@
 
 # Scaffold/image version pin (managed by release automation; kept under the
 # legacy name until the devkit rename, #781).
-DEVCONTAINER_VERSION=0.5.0-rc3
+DEVCONTAINER_VERSION=0.5.0-rc4
 
 # Delivery mode: devcontainer | direnv | both | bare. Ships empty (= unset:
 # resolved and written back on scaffold) so an aborted upgrade can never
