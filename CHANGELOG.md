@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.0.0-rc1** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -36,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.0.0-rc1** -- automated devcontainer release-pipeline validation; no functional changes
 - **Nix flake image attributes renamed to `devkitImage` / `devkitImageEnv`** ([#781](https://github.com/vig-os/devcontainer/issues/781))
   - As part of the `devcontainer` → `devkit` project rename, the Nix flake output
     attributes are renamed (`devcontainerImage` → `devkitImage`,
@@ -43,7 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     unchanged** — it remains `ghcr.io/vig-os/devcontainer`: the artifact is a dev
     container, while `devkit` names the project/repository that builds and ships
     it. Consumers need **no image-ref change** and keep pulling the same image.
-
 - **Scaffolded `.vig-os` pins under `DEVKIT_VERSION`** ([#781](https://github.com/vig-os/devcontainer/issues/781))
   - The scaffold/release writeback now emits the renamed `DEVKIT_VERSION` key:
     the template manifest, `init-workspace.sh`, the `release.yml` finalize step,
@@ -52,7 +50,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     (the `.vig-os` overwrite drops the stale key). Readers still accept the legacy
     key (soft cutover). The docker-compose `.env` interpolation variable is
     unchanged in this slice.
-
 - **Release dispatch targets the renamed `devkit-smoke-test` repo** ([#781](https://github.com/vig-os/devcontainer/issues/781))
   - The cross-repo smoke-test validation repository was renamed
     `devcontainer-smoke-test` → `devkit-smoke-test`. `release.yml` /
@@ -61,14 +58,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     does not reliably redirect `POST …/dispatches` across a rename. The smoke-test
     template mirror (`assets/smoke-test/`) and the release docs are updated to
     match. The source repository name is unchanged in this slice.
-
 - **Documented `install.sh` one-liners follow redirects (`curl -sSfL`)** ([#781](https://github.com/vig-os/devcontainer/issues/781))
   - Pre-rename hardening: every documented `curl … | bash` install/upgrade
     one-liner (README, `install.sh` help text, `MIGRATION.md`, the smoke-test
     template, and the in-container upgrade hint) now passes `-L` so the fetch
     follows HTTP redirects, keeping the bootstrap working across the upcoming
     `devcontainer` → `devkit` repository rename. Repository and image URLs are
-    unchanged in this slice.
 
 ## [0.5.1](https://github.com/vig-os/devcontainer/releases/tag/0.5.1) - 2026-07-10
 
