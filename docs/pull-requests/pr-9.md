@@ -6,17 +6,17 @@ created: 2026-03-02T05:30:32Z
 updated: 2026-03-03T10:03:45Z
 author: dependabot[bot]
 author_url: https://github.com/dependabot[bot]
-url: https://github.com/vig-os/devcontainer-smoke-test/pull/9
+url: https://github.com/vig-os/devkit-smoke-test/pull/9
 comments: 0
 labels: dependencies, github_actions
 assignees: none
 milestone: none
 projects: none
 merged: 2026-03-03T10:03:37Z
-synced: 2026-03-13T04:12:19.903Z
+synced: 2026-07-10T15:45:53.510Z
 ---
 
-# [PR 9](https://github.com/vig-os/devcontainer-smoke-test/pull/9) ci(deps): bump actions/checkout from 4.3.1 to 6.0.2
+# [PR 9](https://github.com/vig-os/devkit-smoke-test/pull/9) ci(deps): bump actions/checkout from 4.3.1 to 6.0.2
 
 Bumps [actions/checkout](https://github.com/actions/checkout) from 4.3.1 to 6.0.2.
 <details>
@@ -188,5 +188,5 @@ You can trigger Dependabot actions by commenting on this PR:
 
 ## Commits
 
-### Commit 1: [2d13115](https://github.com/vig-os/devcontainer-smoke-test/commit/2d13115ebc020683369df5c632ba9bd89c358640) by [dependabot[bot]](https://github.com/apps/dependabot) on March 2, 2026 at 05:30 AM
+### Commit 1: [2d13115](https://github.com/vig-os/devkit-smoke-test/commit/2d13115ebc020683369df5c632ba9bd89c358640) by [dependabot[bot]](https://github.com/apps/dependabot) on March 2, 2026 at 05:30 AM
 ci(deps): bump actions/checkout from 4.3.1 to 6.0.2, 24 files modified (.github/workflows/ci.yml, .github/workflows/codeql.yml, .github/workflows/release.yml, .github/workflows/scorecard.yml, .github/workflows/sync-issues.yml)

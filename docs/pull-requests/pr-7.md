@@ -6,17 +6,17 @@ created: 2026-03-02T05:30:21Z
 updated: 2026-03-03T10:05:12Z
 author: dependabot[bot]
 author_url: https://github.com/dependabot[bot]
-url: https://github.com/vig-os/devcontainer-smoke-test/pull/7
+url: https://github.com/vig-os/devkit-smoke-test/pull/7
 comments: 0
 labels: dependencies, github_actions
 assignees: none
 milestone: none
 projects: none
 merged: 2026-03-03T10:04:35Z
-synced: 2026-03-13T04:12:21.409Z
+synced: 2026-07-10T15:45:56.268Z
 ---
 
-# [PR 7](https://github.com/vig-os/devcontainer-smoke-test/pull/7) ci(deps): bump the actions-minor-patch group with 3 updates
+# [PR 7](https://github.com/vig-os/devkit-smoke-test/pull/7) ci(deps): bump the actions-minor-patch group with 3 updates
 
 Bumps the actions-minor-patch group with 3 updates: [actions/dependency-review-action](https://github.com/actions/dependency-review-action), [github/codeql-action](https://github.com/github/codeql-action) and [vig-os/sync-issues-action](https://github.com/vig-os/sync-issues-action).
 
@@ -360,5 +360,5 @@ You can trigger Dependabot actions by commenting on this PR:
 
 ## Commits
 
-### Commit 1: [b458bf8](https://github.com/vig-os/devcontainer-smoke-test/commit/b458bf88cf5b53cad238b9ab3a56eb92c1c3355c) by [dependabot[bot]](https://github.com/apps/dependabot) on March 2, 2026 at 05:30 AM
+### Commit 1: [b458bf8](https://github.com/vig-os/devkit-smoke-test/commit/b458bf88cf5b53cad238b9ab3a56eb92c1c3355c) by [dependabot[bot]](https://github.com/apps/dependabot) on March 2, 2026 at 05:30 AM
 ci(deps): bump the actions-minor-patch group with 3 updates, 10 files modified (.github/workflows/ci.yml, .github/workflows/codeql.yml, .github/workflows/scorecard.yml, .github/workflows/sync-issues.yml)

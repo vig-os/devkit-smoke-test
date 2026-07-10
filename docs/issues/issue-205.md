@@ -5,7 +5,7 @@ created: 2026-07-08T17:13:23Z
 updated: 2026-07-09T05:40:42Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/205
+url: https://github.com/vig-os/devkit-smoke-test/issues/205
 comments: 1
 labels: none
 assignees: none
@@ -13,10 +13,10 @@ milestone: none
 projects: none
 parent: none
 children: none
-synced: 2026-07-09T06:03:43.286Z
+synced: 2026-07-10T15:39:56.086Z
 ---
 
-# [Issue 205]: [fix: move pytest to dependency-group so just test survives groups-only sync (0.5.0)](https://github.com/vig-os/devcontainer-smoke-test/issues/205)
+# [Issue 205]: [fix: move pytest to dependency-group so just test survives groups-only sync (0.5.0)](https://github.com/vig-os/devkit-smoke-test/issues/205)
 
 ## Problem
 The 0.5.0 devcontainer scaffold changed the managed `just sync` from `uv sync --all-extras --all-groups` to groups-only (`uv sync --all-groups`; extras are now opt-in). Our `pyproject.toml` declares `pytest`/`pytest-cov` as a `[project.optional-dependencies].dev` **extra**, so after a 0.5.0 deploy overwrites `justfile.project`, `just sync` no longer installs pytest and `just test` fails with `Failed to spawn: pytest`.

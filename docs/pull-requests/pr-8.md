@@ -6,17 +6,17 @@ created: 2026-03-02T05:30:24Z
 updated: 2026-03-03T10:04:52Z
 author: dependabot[bot]
 author_url: https://github.com/dependabot[bot]
-url: https://github.com/vig-os/devcontainer-smoke-test/pull/8
+url: https://github.com/vig-os/devkit-smoke-test/pull/8
 comments: 0
 labels: dependencies, github_actions
 assignees: none
 milestone: none
 projects: none
 merged: 2026-03-03T10:04:45Z
-synced: 2026-03-13T04:12:20.632Z
+synced: 2026-07-10T15:45:54.849Z
 ---
 
-# [PR 8](https://github.com/vig-os/devcontainer-smoke-test/pull/8) ci(deps): bump actions/upload-artifact from 4.6.2 to 7.0.0
+# [PR 8](https://github.com/vig-os/devkit-smoke-test/pull/8) ci(deps): bump actions/upload-artifact from 4.6.2 to 7.0.0
 
 Bumps [actions/upload-artifact](https://github.com/actions/upload-artifact) from 4.6.2 to 7.0.0.
 <details>
@@ -119,5 +119,5 @@ You can trigger Dependabot actions by commenting on this PR:
 
 ## Commits
 
-### Commit 1: [8cfe567](https://github.com/vig-os/devcontainer-smoke-test/commit/8cfe567bfcdd824034e4f5f0a1e724d1999343c5) by [dependabot[bot]](https://github.com/apps/dependabot) on March 2, 2026 at 05:30 AM
+### Commit 1: [8cfe567](https://github.com/vig-os/devkit-smoke-test/commit/8cfe567bfcdd824034e4f5f0a1e724d1999343c5) by [dependabot[bot]](https://github.com/apps/dependabot) on March 2, 2026 at 05:30 AM
 ci(deps): bump actions/upload-artifact from 4.6.2 to 7.0.0, 4 files modified (.github/workflows/ci.yml)

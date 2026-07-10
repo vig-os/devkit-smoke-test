@@ -5,7 +5,7 @@ created: 2026-03-09T14:21:41Z
 updated: 2026-03-09T15:36:16Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/22
+url: https://github.com/vig-os/devkit-smoke-test/issues/22
 comments: 0
 labels: bug, area:ci
 assignees: c-vigo
@@ -13,10 +13,10 @@ milestone: none
 projects: none
 parent: none
 children: none
-synced: 2026-03-13T04:12:05.559Z
+synced: 2026-07-10T15:40:00.328Z
 ---
 
-# [Issue 22]: [[BUG] Repository dispatch fails: dependency-review job requests pull-requests: write beyond caller ceiling](https://github.com/vig-os/devcontainer-smoke-test/issues/22)
+# [Issue 22]: [[BUG] Repository dispatch fails: dependency-review job requests pull-requests: write beyond caller ceiling](https://github.com/vig-os/devkit-smoke-test/issues/22)
 
 ## Description
 

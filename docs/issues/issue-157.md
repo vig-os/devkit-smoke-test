@@ -5,7 +5,7 @@ created: 2026-06-18T16:27:49Z
 updated: 2026-06-18T16:47:03Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/157
+url: https://github.com/vig-os/devkit-smoke-test/issues/157
 comments: 0
 labels: bug, area:ci
 assignees: none
@@ -13,10 +13,10 @@ milestone: none
 projects: none
 parent: none
 children: none
-synced: 2026-06-19T06:04:11.121Z
+synced: 2026-07-10T15:39:57.663Z
 ---
 
-# [Issue 157]: [[BUG] Smoke-test prepare-release fails on empty Unreleased section](https://github.com/vig-os/devcontainer-smoke-test/issues/157)
+# [Issue 157]: [[BUG] Smoke-test prepare-release fails on empty Unreleased section](https://github.com/vig-os/devkit-smoke-test/issues/157)
 
 ## Description
 

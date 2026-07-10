@@ -1,11 +1,11 @@
 ---
 type: issue
-state: open
+state: closed
 created: 2026-06-22T07:32:40Z
-updated: 2026-06-22T07:32:40Z
+updated: 2026-06-22T21:05:20Z
 author: vig-os-release-app[bot]
 author_url: https://github.com/vig-os-release-app[bot]
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/168
+url: https://github.com/vig-os/devkit-smoke-test/issues/168
 comments: 0
 labels: bug
 assignees: none
@@ -13,10 +13,10 @@ milestone: none
 projects: none
 parent: none
 children: none
-synced: 2026-06-22T09:48:30.308Z
+synced: 2026-07-10T15:39:57.211Z
 ---
 
-# [Issue 168]: [Release 0.3.7 failed — automatic rollback](https://github.com/vig-os/devcontainer-smoke-test/issues/168)
+# [Issue 168]: [Release 0.3.7 failed — automatic rollback](https://github.com/vig-os/devkit-smoke-test/issues/168)
 
 Release 0.3.7 failed during the automated release workflow.
 

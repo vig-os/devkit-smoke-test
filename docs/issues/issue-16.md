@@ -5,7 +5,7 @@ created: 2026-03-08T20:08:04Z
 updated: 2026-03-09T06:57:43Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/16
+url: https://github.com/vig-os/devkit-smoke-test/issues/16
 comments: 1
 labels: bug, area:ci
 assignees: c-vigo
@@ -13,10 +13,10 @@ milestone: none
 projects: none
 parent: none
 children: none
-synced: 2026-03-13T04:12:05.845Z
+synced: 2026-07-10T15:40:00.995Z
 ---
 
-# [Issue 16]: [[BUG] Changelog overstates Dependabot action version bumps](https://github.com/vig-os/devcontainer-smoke-test/issues/16)
+# [Issue 16]: [[BUG] Changelog overstates Dependabot action version bumps](https://github.com/vig-os/devkit-smoke-test/issues/16)
 
 ## Description
 

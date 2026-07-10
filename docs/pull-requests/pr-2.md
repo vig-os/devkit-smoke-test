@@ -6,18 +6,17 @@ created: 2026-02-24T15:57:14Z
 updated: 2026-02-25T08:26:58Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/pull/2
+url: https://github.com/vig-os/devkit-smoke-test/pull/2
 comments: 0
 labels: none
 assignees: c-vigo
 milestone: none
 projects: none
-relationship: none
 merged: 2026-02-25T08:26:50Z
-synced: 2026-02-26T04:17:09.489Z
+synced: 2026-07-10T15:46:00.930Z
 ---
 
-# [PR 2](https://github.com/vig-os/devcontainer-smoke-test/pull/2) chore: align setup scripts and lockfile for CI validation
+# [PR 2](https://github.com/vig-os/devkit-smoke-test/pull/2) chore: align setup scripts and lockfile for CI validation
 
 ## Description
 
@@ -95,23 +94,23 @@ Refs: #1
 
 ## Commits
 
-### Commit 1: [52d196e](https://github.com/vig-os/devcontainer-smoke-test/commit/52d196e106b7795a9779489f9723fd6b4aebec19) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:10 PM
+### Commit 1: [52d196e](https://github.com/vig-os/devkit-smoke-test/commit/52d196e106b7795a9779489f9723fd6b4aebec19) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:10 PM
 docs: create README with project purpose and scope for devcontainer smoke test, 40 files modified (README.md)
 
-### Commit 2: [c080dd5](https://github.com/vig-os/devcontainer-smoke-test/commit/c080dd53a8ce5bb143694d5800d39da1e00603cb) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:18 PM
+### Commit 2: [c080dd5](https://github.com/vig-os/devkit-smoke-test/commit/c080dd53a8ce5bb143694d5800d39da1e00603cb) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:18 PM
 chore: update uv.lock, 108 files modified (uv.lock)
 
-### Commit 3: [003a545](https://github.com/vig-os/devcontainer-smoke-test/commit/003a545e4d10135c93883b33d66d0997e248ebcf) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:48 PM
+### Commit 3: [003a545](https://github.com/vig-os/devkit-smoke-test/commit/003a545e4d10135c93883b33d66d0997e248ebcf) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:48 PM
 chore: update devcontainer image and template, 41 files modified (.devcontainer/scripts/setup-gh-repo.sh, .pre-commit-config.yaml)
 
-### Commit 4: [a10e73c](https://github.com/vig-os/devcontainer-smoke-test/commit/a10e73cf0cd6ddb03b22df5231bd35030fb8e284) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:52 PM
+### Commit 4: [a10e73c](https://github.com/vig-os/devkit-smoke-test/commit/a10e73cf0cd6ddb03b22df5231bd35030fb8e284) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:52 PM
 docs: update CHANGELOG, 4 files modified (CHANGELOG.md)
 
-### Commit 5: [bdb2f5c](https://github.com/vig-os/devcontainer-smoke-test/commit/bdb2f5c1c41bb520344c520acad69ddf75f209cf) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 04:11 PM
+### Commit 5: [bdb2f5c](https://github.com/vig-os/devkit-smoke-test/commit/bdb2f5c1c41bb520344c520acad69ddf75f209cf) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 04:11 PM
 feat: install pre-commit in setup action, 9 files modified (.github/actions/setup-env/action.yml)
 
-### Commit 6: [3d37608](https://github.com/vig-os/devcontainer-smoke-test/commit/3d37608dff583fb2a27872d6eb2b6e35113f807b) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 07:27 AM
+### Commit 6: [3d37608](https://github.com/vig-os/devkit-smoke-test/commit/3d37608dff583fb2a27872d6eb2b6e35113f807b) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 07:27 AM
 chore: remove pre-commit hooks that are unavalable in CI, 53 files modified (.pre-commit-config.yaml)
 
-### Commit 7: [bc75ec6](https://github.com/vig-os/devcontainer-smoke-test/commit/bc75ec602e139f9c535357217826009c90667f74) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:12 AM
+### Commit 7: [bc75ec6](https://github.com/vig-os/devkit-smoke-test/commit/bc75ec602e139f9c535357217826009c90667f74) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:12 AM
 chore: update devcontainer image and template, 15 files modified (.devcontainer/docker-compose.yml, .devcontainer/justfile.base, uv.lock)

@@ -1,21 +1,22 @@
 ---
 type: issue
-state: open
+state: closed
 created: 2026-02-25T11:06:43Z
-updated: 2026-02-25T11:06:43Z
+updated: 2026-03-03T20:00:16Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/6
+url: https://github.com/vig-os/devkit-smoke-test/issues/6
 comments: 0
 labels: feature
-assignees: none
+assignees: c-vigo
 milestone: none
 projects: none
-relationship: none
-synced: 2026-02-26T04:17:04.304Z
+parent: none
+children: none
+synced: 2026-07-10T15:40:01.981Z
 ---
 
-# [Issue 6]: [[FEATURE] Add container-based CI workflow for smoke-test repo](https://github.com/vig-os/devcontainer-smoke-test/issues/6)
+# [Issue 6]: [[FEATURE] Add container-based CI workflow for smoke-test repo](https://github.com/vig-os/devkit-smoke-test/issues/6)
 
 ### Description
 

@@ -5,7 +5,7 @@ created: 2026-06-22T09:34:14Z
 updated: 2026-06-22T11:33:16Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/169
+url: https://github.com/vig-os/devkit-smoke-test/issues/169
 comments: 1
 labels: bug
 assignees: none
@@ -13,10 +13,10 @@ milestone: none
 projects: none
 parent: none
 children: none
-synced: 2026-06-22T20:37:25.434Z
+synced: 2026-07-10T15:39:56.624Z
 ---
 
-# [Issue 169]: [[BUG] Smoke-test dispatch not idempotent across candidate→final on same base version](https://github.com/vig-os/devcontainer-smoke-test/issues/169)
+# [Issue 169]: [[BUG] Smoke-test dispatch not idempotent across candidate→final on same base version](https://github.com/vig-os/devkit-smoke-test/issues/169)
 
 ## Description
 

@@ -1,21 +1,22 @@
 ---
 type: issue
-state: open
+state: closed
 created: 2026-02-25T08:34:09Z
-updated: 2026-02-25T08:34:38Z
+updated: 2026-03-03T07:02:09Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/3
+url: https://github.com/vig-os/devkit-smoke-test/issues/3
 comments: 0
 labels: feature
 assignees: c-vigo
 milestone: none
 projects: none
-relationship: none
-synced: 2026-02-26T04:17:04.671Z
+parent: none
+children: none
+synced: 2026-07-10T15:40:02.442Z
 ---
 
-# [Issue 3]: [[FEATURE] Add repository_dispatch listener stub for smoke-test orchestration](https://github.com/vig-os/devcontainer-smoke-test/issues/3)
+# [Issue 3]: [[FEATURE] Add repository_dispatch listener stub for smoke-test orchestration](https://github.com/vig-os/devkit-smoke-test/issues/3)
 
 ### Description
 

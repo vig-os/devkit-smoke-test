@@ -6,18 +6,17 @@ created: 2026-02-25T09:27:12Z
 updated: 2026-02-26T12:05:23Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/pull/5
+url: https://github.com/vig-os/devkit-smoke-test/pull/5
 comments: 2
 labels: none
 assignees: c-vigo
 milestone: none
 projects: none
-relationship: none
 merged: 2026-02-25T18:02:02Z
-synced: 2026-02-27T04:13:05.742Z
+synced: 2026-07-10T15:45:58.082Z
 ---
 
-# [PR 5](https://github.com/vig-os/devcontainer-smoke-test/pull/5) ci: add repository_dispatch listener stub
+# [PR 5](https://github.com/vig-os/devkit-smoke-test/pull/5) ci: add repository_dispatch listener stub
 
 ## Description
 
@@ -105,7 +104,7 @@ Refs: #1, #3, [devcontainer#170](https://github.com/vig-os/devcontainer/issues/1
 
 _Posted on February 25, 2026 at 09:38 AM_
 
-_File: [`.devcontainer/scripts/setup-gh-repo.sh (line 49 RIGHT)`](https://github.com/vig-os/devcontainer-smoke-test/pull/5#discussion_r2851904535)_
+_File: [`.devcontainer/scripts/setup-gh-repo.sh (line 49 RIGHT)`](https://github.com/vig-os/devkit-smoke-test/pull/5#discussion_r2851904535)_
 
 ```diff
 @@ -28,3 +29,28 @@ else
@@ -144,7 +143,7 @@ JSON
 
 Conversation:
 
-- **[@c-vigo](https://github.com/c-vigo)** on February 25, 2026 at 09:43 AM — [link](https://github.com/vig-os/devcontainer-smoke-test/pull/5#discussion_r2851927957)
+- **[@c-vigo](https://github.com/c-vigo)** on February 25, 2026 at 09:43 AM — [link](https://github.com/vig-os/devkit-smoke-test/pull/5#discussion_r2851927957)
 
   Thanks for the review. This is actually valid bash — placing `>/dev/null 2>&1; then` on the same line as a heredoc opener is standard POSIX/bash syntax. Bash defers reading the heredoc body from subsequent lines while still parsing the `;` and `then` on the opener line. Confirmed with `bash -n`: no syntax errors.
 
@@ -154,41 +153,41 @@ Conversation:
 
 ## Commits
 
-### Commit 1: [52d196e](https://github.com/vig-os/devcontainer-smoke-test/commit/52d196e106b7795a9779489f9723fd6b4aebec19) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:10 PM
+### Commit 1: [52d196e](https://github.com/vig-os/devkit-smoke-test/commit/52d196e106b7795a9779489f9723fd6b4aebec19) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:10 PM
 docs: create README with project purpose and scope for devcontainer smoke test, 40 files modified (README.md)
 
-### Commit 2: [c080dd5](https://github.com/vig-os/devcontainer-smoke-test/commit/c080dd53a8ce5bb143694d5800d39da1e00603cb) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:18 PM
+### Commit 2: [c080dd5](https://github.com/vig-os/devkit-smoke-test/commit/c080dd53a8ce5bb143694d5800d39da1e00603cb) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:18 PM
 chore: update uv.lock, 108 files modified (uv.lock)
 
-### Commit 3: [003a545](https://github.com/vig-os/devcontainer-smoke-test/commit/003a545e4d10135c93883b33d66d0997e248ebcf) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:48 PM
+### Commit 3: [003a545](https://github.com/vig-os/devkit-smoke-test/commit/003a545e4d10135c93883b33d66d0997e248ebcf) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:48 PM
 chore: update devcontainer image and template, 41 files modified (.devcontainer/scripts/setup-gh-repo.sh, .pre-commit-config.yaml)
 
-### Commit 4: [a10e73c](https://github.com/vig-os/devcontainer-smoke-test/commit/a10e73cf0cd6ddb03b22df5231bd35030fb8e284) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:52 PM
+### Commit 4: [a10e73c](https://github.com/vig-os/devkit-smoke-test/commit/a10e73cf0cd6ddb03b22df5231bd35030fb8e284) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 03:52 PM
 docs: update CHANGELOG, 4 files modified (CHANGELOG.md)
 
-### Commit 5: [bdb2f5c](https://github.com/vig-os/devcontainer-smoke-test/commit/bdb2f5c1c41bb520344c520acad69ddf75f209cf) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 04:11 PM
+### Commit 5: [bdb2f5c](https://github.com/vig-os/devkit-smoke-test/commit/bdb2f5c1c41bb520344c520acad69ddf75f209cf) by [c-vigo](https://github.com/c-vigo) on February 24, 2026 at 04:11 PM
 feat: install pre-commit in setup action, 9 files modified (.github/actions/setup-env/action.yml)
 
-### Commit 6: [925e63a](https://github.com/vig-os/devcontainer-smoke-test/commit/925e63ab5fb8314af26f7e57cf7fdc7b5616c4d4) by [commit-action-bot[bot]](https://github.com/apps/commit-action-bot) on February 25, 2026 at 04:21 AM
+### Commit 6: [925e63a](https://github.com/vig-os/devkit-smoke-test/commit/925e63ab5fb8314af26f7e57cf7fdc7b5616c4d4) by [commit-action-bot[bot]](https://github.com/apps/commit-action-bot) on February 25, 2026 at 04:21 AM
 chore: sync issues and PRs, 139 files modified (docs/issues/issue-1.md, docs/pull-requests/pr-2.md)
 
-### Commit 7: [3d37608](https://github.com/vig-os/devcontainer-smoke-test/commit/3d37608dff583fb2a27872d6eb2b6e35113f807b) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 07:27 AM
+### Commit 7: [3d37608](https://github.com/vig-os/devkit-smoke-test/commit/3d37608dff583fb2a27872d6eb2b6e35113f807b) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 07:27 AM
 chore: remove pre-commit hooks that are unavalable in CI, 53 files modified (.pre-commit-config.yaml)
 
-### Commit 8: [bc75ec6](https://github.com/vig-os/devcontainer-smoke-test/commit/bc75ec602e139f9c535357217826009c90667f74) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:12 AM
+### Commit 8: [bc75ec6](https://github.com/vig-os/devkit-smoke-test/commit/bc75ec602e139f9c535357217826009c90667f74) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:12 AM
 chore: update devcontainer image and template, 15 files modified (.devcontainer/docker-compose.yml, .devcontainer/justfile.base, uv.lock)
 
-### Commit 9: [356dc0d](https://github.com/vig-os/devcontainer-smoke-test/commit/356dc0d5d5dc73c70fb78555b0d68d53a09ee4d9) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:26 AM
+### Commit 9: [356dc0d](https://github.com/vig-os/devkit-smoke-test/commit/356dc0d5d5dc73c70fb78555b0d68d53a09ee4d9) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:26 AM
 chore: align setup scripts and lockfile for CI validation (#2), 270 files modified (.devcontainer/docker-compose.yml, .devcontainer/justfile.base, .devcontainer/scripts/setup-gh-repo.sh, .github/actions/setup-env/action.yml, .pre-commit-config.yaml, CHANGELOG.md, README.md, uv.lock)
 
-### Commit 10: [1a9e1d5](https://github.com/vig-os/devcontainer-smoke-test/commit/1a9e1d52a9a2b925b8b849f7e53f0b12bbd2aeb9) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:36 AM
+### Commit 10: [1a9e1d5](https://github.com/vig-os/devkit-smoke-test/commit/1a9e1d52a9a2b925b8b849f7e53f0b12bbd2aeb9) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:36 AM
 feat(ci): add repository_dispatch listener stub, 28 files modified (.github/workflows/repository-dispatch.yml)
 
-### Commit 11: [2dfe086](https://github.com/vig-os/devcontainer-smoke-test/commit/2dfe0864c3b8250c3efd7d4c9adca6b086518315) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:41 AM
+### Commit 11: [2dfe086](https://github.com/vig-os/devkit-smoke-test/commit/2dfe0864c3b8250c3efd7d4c9adca6b086518315) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:41 AM
 docs(changelog): add unreleased entry for dispatch listener, 3 files modified (CHANGELOG.md)
 
-### Commit 12: [11c1bb2](https://github.com/vig-os/devcontainer-smoke-test/commit/11c1bb2809dc38d3a913f166f56377ce955dd4cd) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:49 AM
+### Commit 12: [11c1bb2](https://github.com/vig-os/devkit-smoke-test/commit/11c1bb2809dc38d3a913f166f56377ce955dd4cd) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:49 AM
 docs(changelog): add entry for bootstrap scripts, 4 files modified (CHANGELOG.md)
 
-### Commit 13: [f0861a1](https://github.com/vig-os/devcontainer-smoke-test/commit/f0861a1f17721b90a617a4b5afdbb6b0accaaabb) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:59 AM
+### Commit 13: [f0861a1](https://github.com/vig-os/devkit-smoke-test/commit/f0861a1f17721b90a617a4b5afdbb6b0accaaabb) by [c-vigo](https://github.com/c-vigo) on February 25, 2026 at 08:59 AM
 ci: add repository_dispatch listener stub (#4), 35 files modified (.github/workflows/repository-dispatch.yml, CHANGELOG.md)

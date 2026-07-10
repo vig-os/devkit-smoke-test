@@ -1,21 +1,22 @@
 ---
 type: issue
-state: open
+state: closed
 created: 2026-03-07T07:16:30Z
-updated: 2026-03-07T07:18:16Z
+updated: 2026-03-09T15:46:52Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/13
+url: https://github.com/vig-os/devkit-smoke-test/issues/13
 comments: 0
 labels: feature, area:ci
 assignees: c-vigo
 milestone: none
 projects: none
-relationship: none
-synced: 2026-03-08T04:10:48.727Z
+parent: none
+children: none
+synced: 2026-07-10T15:40:01.455Z
 ---
 
-# [Issue 13]: [[FEATURE] Wire smoke-test dispatch listener to run RC CI variants](https://github.com/vig-os/devcontainer-smoke-test/issues/13)
+# [Issue 13]: [[FEATURE] Wire smoke-test dispatch listener to run RC CI variants](https://github.com/vig-os/devkit-smoke-test/issues/13)
 
 ### Description
 

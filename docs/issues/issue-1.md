@@ -1,21 +1,22 @@
 ---
 type: issue
-state: open
+state: closed
 created: 2026-02-24T12:48:29Z
-updated: 2026-02-25T08:26:02Z
+updated: 2026-03-03T07:02:09Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/1
+url: https://github.com/vig-os/devkit-smoke-test/issues/1
 comments: 0
 labels: chore
 assignees: c-vigo
 milestone: none
 projects: none
-relationship: none
-synced: 2026-02-26T04:17:05.060Z
+parent: none
+children: none
+synced: 2026-07-10T15:40:02.927Z
 ---
 
-# [Issue 1]: [[CHORE] Minimal smoke-test repo changes to make CI/CD pass](https://github.com/vig-os/devcontainer-smoke-test/issues/1)
+# [Issue 1]: [[CHORE] Minimal smoke-test repo changes to make CI/CD pass](https://github.com/vig-os/devkit-smoke-test/issues/1)
 
 ### Chore Type
 CI / Build change
