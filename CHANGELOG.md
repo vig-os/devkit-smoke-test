@@ -19,24 +19,72 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.5.1](https://github.com/vig-os/devcontainer-smoke-test/releases/tag/0.5.1) - 2026-07-10
+## [1.0.0](https://github.com/vig-os/devkit-smoke-test/releases/tag/1.0.0) - 2026-07-10
+
+### Added
+
+- **Version-pin parsers accept the renamed `DEVKIT_VERSION` key** ([#781](https://github.com/vig-os/devcontainer/issues/781))
+  - As the first step of the `devcontainer` → `devkit` rename, every `.vig-os`
+    version-pin reader now prefers a `DEVKIT_VERSION` key and falls back to the
+    legacy `DEVCONTAINER_VERSION` when it is absent, so un-migrated consumer pins
+    keep resolving (soft cutover). When both keys are present, `DEVKIT_VERSION`
+    wins regardless of line order. Covers the `resolve-image` composite action
+    (root + scaffold), the scaffold `initialize.sh` / `version-check.sh` scripts,
+    and the Nix image build.
 
 ### Changed
 
-- **Smoke-test deploy of 0.5.1** -- automated devcontainer release-pipeline validation; no functional changes
+- **Smoke-test deploy of 1.0.0** -- automated devcontainer release-pipeline validation; no functional changes
+- **Nix flake image attributes renamed to `devkitImage` / `devkitImageEnv`** ([#781](https://github.com/vig-os/devcontainer/issues/781))
+  - As part of the `devcontainer` → `devkit` project rename, the Nix flake output
+    attributes are renamed (`devcontainerImage` → `devkitImage`,
+    `devcontainerImageEnv` → `devkitImageEnv`). The **published image name is
+    unchanged** — it remains `ghcr.io/vig-os/devcontainer`: the artifact is a dev
+    container, while `devkit` names the project/repository that builds and ships
+    it. Consumers need **no image-ref change** and keep pulling the same image.
+- **Scaffolded `.vig-os` pins under `DEVKIT_VERSION`** ([#781](https://github.com/vig-os/devcontainer/issues/781))
+  - The scaffold/release writeback now emits the renamed `DEVKIT_VERSION` key:
+    the template manifest, `init-workspace.sh`, the `release.yml` finalize step,
+    the repo-root `.vig-os`, and the scaffolded `devc-upgrade` recipe. A `--force`
+    upgrade migrates a legacy `DEVCONTAINER_VERSION` pin to `DEVKIT_VERSION`
+    (the `.vig-os` overwrite drops the stale key). Readers still accept the legacy
+    key (soft cutover). The docker-compose `.env` interpolation variable is
+    unchanged in this slice.
+- **Release dispatch targets the renamed `devkit-smoke-test` repo** ([#781](https://github.com/vig-os/devcontainer/issues/781))
+  - The cross-repo smoke-test validation repository was renamed
+    `devcontainer-smoke-test` → `devkit-smoke-test`. `release.yml` /
+    `promote-release.yml` now target the new name for the `repository_dispatch`,
+    the scoped app token, and the downstream published-release gate — GitHub's API
+    does not reliably redirect `POST …/dispatches` across a rename. The smoke-test
+    template mirror (`assets/smoke-test/`) and the release docs are updated to
+    match. The source repository name is unchanged in this slice.
+- **Documented `install.sh` one-liners follow redirects (`curl -sSfL`)** ([#781](https://github.com/vig-os/devcontainer/issues/781))
+  - Pre-rename hardening: every documented `curl … | bash` install/upgrade
+    one-liner (README, `install.sh` help text, `MIGRATION.md`, the smoke-test
+    template, and the in-container upgrade hint) now passes `-L` so the fetch
+    follows HTTP redirects, keeping the bootstrap working across the upcoming
+    `devcontainer` → `devkit` repository rename. Repository and image URLs are
+
+## [0.5.1](https://github.com/vig-os/devcontainer/releases/tag/0.5.1) - 2026-07-10
+
+### Changed
+
 - **Renovate: update `github-backup` from `==0.63.0` to `==0.64.0`** ([#960](https://github.com/vig-os/devcontainer/pull/960))
 - **Renovate dependency update** ([#866](https://github.com/vig-os/devcontainer/pull/866))
   - Update `aquasecurity/trivy` from `v0.71.2` to `v0.72.0`
   - Update `astral-sh/setup-uv` from `v8.3.1` to `v8.3.2`
   - Update `docker/login-action` from `v4.2.0` to `v4.4.0`
+
 - **Renovate: update `github/codeql-action` from `8aad20d` to `99df26d`** ([#862](https://github.com/vig-os/devcontainer/pull/862))
 
 ### Fixed
 
 - **Nested scaffold docs dropped by unanchored preserve excludes** ([#953](https://github.com/vig-os/devcontainer/issues/953))
   - `init-workspace.sh` built its rsync preserve excludes as `--exclude=$name`, so bare `PRESERVE_FILES` entries (`README.md`, `CHANGELOG.md`) matched by basename at every depth and silently dropped devkit-authored nested docs (`.devcontainer/README.md`, `.devcontainer/CHANGELOG.md`, `.claude/skills/*/README.md`) on `--force` upgrades — files the `--preview` report still listed as ADDED. The excludes are now root-anchored (`--exclude=/$name`), matching `is_preserved_file`'s exact-path semantics: root docs stay preserved, nested docs ship.
+
 - **Imageless `--no-prompts` defaulted the org to a bogus `vigOS/devc` literal** ([#954](https://github.com/vig-os/devcontainer/issues/954))
   - With no `ORG_NAME` env and no manifest `DEVKIT_ORG`, the org defaulted to the hardcoded `vigOS/devc` — a `/`-bearing value that sed-substituted into `{{ORG_NAME}}` in generated files (e.g. the LICENSE copyright line). The default now derives from the `GITHUB_REPOSITORY` owner segment (already resolved on this path via `DEVKIT_REPO`), falling back to the literal `vigOS` only when no usable owner/repo is present.
+
 - **Broken links, duplicate sections, and name/title mismatches in agent skills** ([#912](https://github.com/vig-os/devcontainer/issues/912))
   - All `../../rules/*.mdc` links in `.claude/skills/` now point to the correct skill files or `CLAUDE.md` (`.claude/rules/` was removed in #626).
   - `../docs/RELEASE_CYCLE.md` links in `pr_create` and `pr_post-merge` corrected to `../../../docs/RELEASE_CYCLE.md`.
