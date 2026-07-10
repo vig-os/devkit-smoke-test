@@ -18,7 +18,7 @@ DEVKIT_MODE=both
 # written back by init-workspace.sh — edit only to deliberately rename.
 DEVKIT_PROJECT=devcontainer_smoke_test
 DEVKIT_ORG=vigOS
-DEVKIT_REPO=vig-os/devcontainer-smoke-test
+DEVKIT_REPO=vig-os/devkit-smoke-test
 
 # Reserved: space-separated capability modules for the project dev-shell,
 # mirroring mkProjectShell's `modules = [ ... ]` in flake.nix (#884).
