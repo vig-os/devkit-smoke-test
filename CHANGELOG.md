@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.0.1** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -19,11 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.0.1] - TBD
+## [1.0.1](https://github.com/vig-os/devkit/releases/tag/1.0.1) - 2026-07-11
 
 ### Changed
 
-- **Smoke-test deploy of 1.0.1-rc1** -- automated devcontainer release-pipeline validation; no functional changes
 - **Repository renamed `vig-os/devcontainer` → `vig-os/devkit`** ([#781](https://github.com/vig-os/devkit/issues/781))
   - The source repository is renamed to `devkit`; GitHub redirects the old URLs.
     All source-repo references now point at `vig-os/devkit`: clone/raw/API URLs,
