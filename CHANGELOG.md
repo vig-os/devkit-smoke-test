@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.0.1-rc1** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -19,7 +21,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.0.0](https://github.com/vig-os/devkit-smoke-test/releases/tag/1.0.0) - 2026-07-10
+## [1.0.1] - TBD
+
+### Changed
+
+- **Repository renamed `vig-os/devcontainer` → `vig-os/devkit`** ([#781](https://github.com/vig-os/devkit/issues/781))
+  - The source repository is renamed to `devkit`; GitHub redirects the old URLs.
+    All source-repo references now point at `vig-os/devkit`: clone/raw/API URLs,
+    the documented `install.sh` one-liners, the `devc-upgrade` recipe, the release
+    workflow's cosign signing identity (`--certificate-identity-regexp`), and the
+    image's OCI `source` label. The **published image is unchanged** —
+    `ghcr.io/vig-os/devcontainer` — so existing pins and `podman pull` commands
+    keep working with no change; a re-scaffold only refreshes the source URLs.
+
+### Fixed
+
+- **`sync-issues` no longer full-re-syncs on a cache miss** ([#980](https://github.com/vig-os/devkit/issues/980))
+  - The scaffolded `sync-issues` workflow keyed its incremental-state cache by
+    repository name, so a repository rename (or the routine 7-day cache eviction)
+    orphaned the state and made it re-fetch the **entire** issue/PR history from
+    epoch — exhausting the GitHub API rate limit before it could save state, so it
+    failed every run. On a cache miss it now falls back to a bounded **14-day
+    look-back** (safely covering the eviction gap; older items already live in the
+    committed archives), then saves state and self-heals to incremental.
+    `force-update` still performs a full rebuild.
+
+## [1.0.0](https://github.com/vig-os/devcontainer/releases/tag/1.0.0) - 2026-07-10
 
 ### Added
 
@@ -34,7 +61,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.0.0** -- automated devcontainer release-pipeline validation; no functional changes
 - **Nix flake image attributes renamed to `devkitImage` / `devkitImageEnv`** ([#781](https://github.com/vig-os/devcontainer/issues/781))
   - As part of the `devcontainer` → `devkit` project rename, the Nix flake output
     attributes are renamed (`devcontainerImage` → `devkitImage`,
@@ -42,6 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     unchanged** — it remains `ghcr.io/vig-os/devcontainer`: the artifact is a dev
     container, while `devkit` names the project/repository that builds and ships
     it. Consumers need **no image-ref change** and keep pulling the same image.
+
 - **Scaffolded `.vig-os` pins under `DEVKIT_VERSION`** ([#781](https://github.com/vig-os/devcontainer/issues/781))
   - The scaffold/release writeback now emits the renamed `DEVKIT_VERSION` key:
     the template manifest, `init-workspace.sh`, the `release.yml` finalize step,
@@ -50,6 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     (the `.vig-os` overwrite drops the stale key). Readers still accept the legacy
     key (soft cutover). The docker-compose `.env` interpolation variable is
     unchanged in this slice.
+
 - **Release dispatch targets the renamed `devkit-smoke-test` repo** ([#781](https://github.com/vig-os/devcontainer/issues/781))
   - The cross-repo smoke-test validation repository was renamed
     `devcontainer-smoke-test` → `devkit-smoke-test`. `release.yml` /
@@ -58,12 +86,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     does not reliably redirect `POST …/dispatches` across a rename. The smoke-test
     template mirror (`assets/smoke-test/`) and the release docs are updated to
     match. The source repository name is unchanged in this slice.
+
 - **Documented `install.sh` one-liners follow redirects (`curl -sSfL`)** ([#781](https://github.com/vig-os/devcontainer/issues/781))
   - Pre-rename hardening: every documented `curl … | bash` install/upgrade
     one-liner (README, `install.sh` help text, `MIGRATION.md`, the smoke-test
     template, and the in-container upgrade hint) now passes `-L` so the fetch
     follows HTTP redirects, keeping the bootstrap working across the upcoming
     `devcontainer` → `devkit` repository rename. Repository and image URLs are
+    unchanged in this slice.
 
 ## [0.5.1](https://github.com/vig-os/devcontainer/releases/tag/0.5.1) - 2026-07-10
 
