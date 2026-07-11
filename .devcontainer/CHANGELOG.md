@@ -19,6 +19,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [1.0.1](https://github.com/vig-os/devkit/releases/tag/1.0.1) - 2026-07-11
+
+### Changed
+
+- **Repository renamed `vig-os/devcontainer` → `vig-os/devkit`** ([#781](https://github.com/vig-os/devkit/issues/781))
+  - The source repository is renamed to `devkit`; GitHub redirects the old URLs.
+    All source-repo references now point at `vig-os/devkit`: clone/raw/API URLs,
+    the documented `install.sh` one-liners, the `devc-upgrade` recipe, the release
+    workflow's cosign signing identity (`--certificate-identity-regexp`), and the
+    image's OCI `source` label. The **published image is unchanged** —
+    `ghcr.io/vig-os/devcontainer` — so existing pins and `podman pull` commands
+    keep working with no change; a re-scaffold only refreshes the source URLs.
+
+### Fixed
+
+- **`sync-issues` no longer full-re-syncs on a cache miss** ([#980](https://github.com/vig-os/devkit/issues/980))
+  - The scaffolded `sync-issues` workflow keyed its incremental-state cache by
+    repository name, so a repository rename (or the routine 7-day cache eviction)
+    orphaned the state and made it re-fetch the **entire** issue/PR history from
+    epoch — exhausting the GitHub API rate limit before it could save state, so it
+    failed every run. On a cache miss it now falls back to a bounded **14-day
+    look-back** (safely covering the eviction gap; older items already live in the
+    committed archives), then saves state and self-heals to incremental.
+    `force-update` still performs a full rebuild.
+
 ## [1.0.0](https://github.com/vig-os/devcontainer/releases/tag/1.0.0) - 2026-07-10
 
 ### Added
@@ -398,7 +423,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The CI lint gate (`.github/actions/test-project`) now runs the whole committed hook suite via `prek run --all-files` (was `uv run pre-commit run --all-files`), so `prek` — not the Python `pre-commit` — is what CI validates against the impure hooks too; `pre-commit==4.6.0` is removed from `pyproject.toml` + `uv.lock` (and the now-vestigial `pre-commit-` dev-shell PATH exclusion in `setup-env` is dropped), completing the "dropped from both" migration
   - Migration-completeness follow-ups: the committed `check-yaml` hook now passes `--allow-multiple-documents` in both the runner and `checks.pre-commit` so the Nix gate is no longer more lenient than the runner on multi-document YAML; the worktree `prek install` wires all three hook stages (`-t pre-commit -t commit-msg -t prepare-commit-msg`) so commit-msg / prepare-commit-msg hooks run in worktrees; and the downstream scaffold's remaining `pre-commit`/`PRE_COMMIT_HOME` references (CI `env`, `container-ci-quirks.md`, `init-precommit.sh`) are repointed at `prek`/`PREK_HOME`
 - **Nix image bakes the build-time placeholder manifest so workspace init takes the fast path** ([#718](https://github.com/vig-os/devcontainer/issues/718))
-  - The flake bootstrap layer now generates `/root/assets/.placeholder-manifest.txt` (the file `init-workspace.sh` reads next to itself) by `grep`-listing every workspace asset that carries a `devcontainer_smoke_test`/`vigOS`/`vig-os/devcontainer-smoke-test` token, at its in-image runtime path and sorted for bit-reproducibility. Previously the Nix image shipped without the manifest, so `init-workspace.sh` always fell back to a slow runtime `find`+`grep` over the whole scaffold; the fast substitution path now fires. Output is unchanged (the fallback already produced correct results) — this is a startup-time optimization only
+  - The flake bootstrap layer now generates `/root/assets/.placeholder-manifest.txt` (the file `init-workspace.sh` reads next to itself) by `grep`-listing every workspace asset that carries a `devcontainer_smoke_test`/`vigOS`/`vig-os/devkit-smoke-test` token, at its in-image runtime path and sorted for bit-reproducibility. Previously the Nix image shipped without the manifest, so `init-workspace.sh` always fell back to a slow runtime `find`+`grep` over the whole scaffold; the fast substitution path now fires. Output is unchanged (the fallback already produced correct results) — this is a startup-time optimization only
 - **CI provisions every job from the Nix flake — the ad-hoc `setup-env` install path (and its hardcoded `uv` pin) is gone** ([#720](https://github.com/vig-os/devcontainer/issues/720))
   - The `setup-env` composite action is now flake-only: it always installs Nix + Cachix and enters the flake dev-shell, so CI and local `nix develop` run the exact same toolchain (uv, Python, just, taplo, BATS, linters). The `provision-via-flake` toggle and the ad-hoc install steps (`astral-sh/setup-uv`, `actions/setup-python`, `taiki-e/install-action` for just, the taplo curl, and `bats-action`) — with their now-removed `install-python`/`python-version`/`install-just`/`install-taplo`/`install-bats` inputs and the unused `uv-version` output — are deleted
   - Resolves the version drift #720 was filed for: the second, hardcoded `uv` pin (`0.11.23`) in `setup-env` is removed, so the provisioned `uv` version now flows from a single source — the flake's overlaid `pkgs.uv.version` in `flake.lock`. The lightweight security and release-orchestration jobs (which previously used the ad-hoc path) now pull the warm `vig-os` Cachix closure instead; `security-scan.yml`'s Nix-image job drops its duplicate direct Nix/Cachix setup in favour of the shared action. Host-integration tools (podman, Node.js, the devcontainer CLI) keep their dedicated steps
@@ -770,7 +795,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `resolve-image` composite action resolves the image tag and validates it exists in GHCR
 - **`GITHUB_REPOSITORY` resolution for workspace init** ([#509](https://github.com/vig-os/devcontainer/issues/509))
   - `parse-github-remote-lib.sh` extracts `owner/repo` from HTTPS, SSH, and `git@` GitHub URLs
-  - `install.sh` gains `--repo` flag; `init-workspace.sh` replaces `vig-os/devcontainer-smoke-test` in workspace template files
+  - `install.sh` gains `--repo` flag; `init-workspace.sh` replaces `vig-os/devkit-smoke-test` in workspace template files
 
 ### Changed
 
