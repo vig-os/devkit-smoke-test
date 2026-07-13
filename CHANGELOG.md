@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.1.0-rc2** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -63,7 +65,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.1.0-rc1** -- automated devcontainer release-pipeline validation; no functional changes
 - **Single mode-aware `ci.yml` replaces the per-mode overlays** ([#991](https://github.com/vig-os/devkit/issues/991))
   - The container-based `ci.yml` and the separate `direnv`/`bare` overlay
     variants collapse into one managed workflow. A leading `resolve-toolchain`
@@ -104,12 +105,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`install.sh` next-steps message is mode-aware** ([#1015](https://github.com/vig-os/devkit/issues/1015))
+  - A `direnv` deploy printed *"Open in VS Code — it will detect `.devcontainer/`"*,
+    pointing at a directory the direnv scaffold never creates (and that
+    `--prune-devcontainer` may have just removed). The message now branches over
+    every validated mode: `direnv` points at `direnv allow` (with `nix develop` as
+    the hook-free fallback), `both` offers each entrypoint, and `bare`/`devcontainer`
+    are unchanged.
+
+- **Scaffolded `workflow_call` workflows declare the secrets they inherit** ([#1016](https://github.com/vig-os/devkit/issues/1016))
+  - `release-core.yml` and `release-publish.yml` read `GHCR_PULL_TOKEN`,
+    `RELEASE_APP_*` and `COMMIT_APP_*` without declaring them in their
+    `workflow_call: secrets:` block. A reusable workflow has a *closed* secrets set,
+    so `actionlint` correctly reported each one as undefined and every scaffolded
+    consumer inherited a dirty lint run. The secrets are now declared (`required:`
+    set from real usage), and the bats suite no longer suppresses the diagnostic —
+    it asserts that every referenced secret is declared.
+
+- **Dev-shell entry is warning-free** ([#1017](https://github.com/vig-os/devkit/issues/1017))
+  - `nix develop` emitted two upstream rename warnings (`nixfmt-rfc-style` →
+    `nixfmt`, and home-manager's `programs.neovim.extraLuaConfig` → `initLua`).
+    Both are pure aliases: the dev-shell and home-manager activation derivations
+    are byte-identical before and after.
+
 - **Scaffolded flake stub references the renamed `github:vig-os/devkit` input** ([#1009](https://github.com/vig-os/devkit/issues/1009))
   - The preserved `assets/workspace/flake.nix` stub (active input and pin-example
     comment) still pointed at `github:vig-os/devcontainer`, which only resolved
     via GitHub's post-rename redirect; new consumers now scaffold the canonical
     `github:vig-os/devkit`. `docs/MIGRATION.md` documents the by-hand update for
     existing `direnv`/`both` consumers, whose stub is never overwritten on upgrade.
+
 - **direnv/bare scaffolds no longer ship container-only artifacts** ([#989](https://github.com/vig-os/devkit/issues/989))
   - `docs/container-ci-quirks.md` (in-image CI notes) is now mode-filtered like
     `.devcontainer/`: excluded from container-less scaffolds, pruned from a
@@ -118,6 +143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     coupling were already retired by the mode-aware toolchain work
     ([#991](https://github.com/vig-os/devkit/issues/991)).
   - The devkit's own `.vig-os` now declares its delivery mode (`direnv`).
+
 - **Pin `sigstore/cosign-installer` to `v4.1.2` so Renovate can resolve its digest** ([#986](https://github.com/vig-os/devkit/issues/986))
   - The previous pin's `# v4` comment named a floating tag that `sigstore/cosign-installer` never published, so Renovate's digest lookup failed on the dependency dashboard
 
