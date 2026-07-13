@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.1.0-rc1** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -65,6 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.1.0-rc1** -- automated devcontainer release-pipeline validation; no functional changes
 - **Single mode-aware `ci.yml` replaces the per-mode overlays** ([#991](https://github.com/vig-os/devkit/issues/991))
   - The container-based `ci.yml` and the separate `direnv`/`bare` overlay
     variants collapse into one managed workflow. A leading `resolve-toolchain`
@@ -111,7 +110,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     via GitHub's post-rename redirect; new consumers now scaffold the canonical
     `github:vig-os/devkit`. `docs/MIGRATION.md` documents the by-hand update for
     existing `direnv`/`both` consumers, whose stub is never overwritten on upgrade.
-
 - **direnv/bare scaffolds no longer ship container-only artifacts** ([#989](https://github.com/vig-os/devkit/issues/989))
   - `docs/container-ci-quirks.md` (in-image CI notes) is now mode-filtered like
     `.devcontainer/`: excluded from container-less scaffolds, pruned from a
@@ -120,7 +118,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     coupling were already retired by the mode-aware toolchain work
     ([#991](https://github.com/vig-os/devkit/issues/991)).
   - The devkit's own `.vig-os` now declares its delivery mode (`direnv`).
-
 - **Pin `sigstore/cosign-installer` to `v4.1.2` so Renovate can resolve its digest** ([#986](https://github.com/vig-os/devkit/issues/986))
   - The previous pin's `# v4` comment named a floating tag that `sigstore/cosign-installer` never published, so Renovate's digest lookup failed on the dependency dashboard
 
