@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.2.0** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -21,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.2.0](https://github.com/vig-os/devkit/releases/tag/1.2.0) - 2026-07-14
+## [1.2.0] - TBD
 
 ### Added
 
@@ -105,6 +103,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.2.0** -- automated devcontainer release-pipeline validation; no functional changes
 - **`perf` is now an approved commit type** ([#1030](https://github.com/vig-os/devkit/issues/1030))
   - `perf` joins the approved commit-type allowlist in `nix/hooks.nix` (both rendered `.pre-commit-config.yaml` files), `DEFAULT_APPROVED_TYPES` (the default CI's `validate-commit-range` uses), and `docs/COMMIT_MESSAGE_STANDARD.md`. It is a standard [Conventional Commits](https://www.conventionalcommits.org/) type and was already used once in history; before this the live `commit-checks` job would reject the next `perf(...)` commit.
 - **Commit scopes are free-form** ([#1019](https://github.com/vig-os/devkit/issues/1019))
@@ -137,10 +136,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The scaffolded `promote-release.yml` header points at `docs/DOWNSTREAM_RELEASE.md` — the consumer's primary release-process documentation — but the scaffold never shipped it, leaving every consumer with a dangling reference. The doc is now a manifest-synced managed file (root copy is the SSoT), so the reference resolves inside consumer repos and refreshes on scaffold upgrades.
 - **Interim transitive npm vulnerability coverage via weekly lockfile maintenance** ([#1041](https://github.com/vig-os/devkit/issues/1041))
   - The Renovate preset never touched transitive npm dependencies, so vulnerabilities in packages only reachable through a parent (12 of 21 alerts in the `commit-action` pilot, including the only critical) were neither reported nor remediated. The preset now enables `lockFileMaintenance` (weekly, same Monday cadence), which regenerates the lockfile and picks up in-range fixes for indirect dependencies. This is an **interim** mechanism, not a full fix: alert-driven transitive remediation is unimplemented upstream ([renovatebot/renovate#41825](https://github.com/renovatebot/renovate/discussions/41825)) and the former `transitiveRemediation` option was removed from Renovate. devkit's own `renovate.json` drops its now-duplicated `lockFileMaintenance` block and inherits it from the preset.
-
 - **Renovate preset groups npm updates instead of one PR per package** ([#1047](https://github.com/vig-os/devkit/issues/1047))
   - The scaffolded `renovate-default.json` gave `github-actions` and `pep621` a `groupName` but left `npm` ungrouped, so npm consumers got one PR per package — each touching `package-lock.json` and `CHANGELOG.md`, so they conflicted pairwise and were effectively unlandable serially. npm now gets two grouping rules matching the other managers' style: `devDependencies` group across all update types ("npm dev dependencies"), and runtime `dependencies` minor/patch ("npm (minor and patch)") with majors staying as individual PRs. The existing `build(npm)` semantic-commit rule still applies to every npm PR (Renovate merges matching `packageRules` in order).
-
 - **`sync-main-to-dev` no longer deadlocks on new local actions** ([#1034](https://github.com/vig-os/devkit/issues/1034))
   - The `sync` job checked out `ref: dev` and then invoked a local `uses: ./.github/actions/...` composite, which GitHub resolves against the checked-out workspace. When `main` added or renamed a local action absent from `dev`, the job died on its first run — and the only PR that would carry the action onto `dev` was the very sync PR the job could no longer open. Dropping `ref: dev` builds against the triggering `main` SHA, where the action is guaranteed to exist; every downstream step already operates on `origin/main`/`origin/dev` or the API, so behavior is otherwise unchanged.
 - **`setup-devkit-toolchain` no longer forces Python/uv env on non-Python consumers** ([#1028](https://github.com/vig-os/devkit/issues/1028))
