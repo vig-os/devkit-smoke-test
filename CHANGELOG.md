@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.3.0** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -19,11 +21,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.3.0] - TBD
+## [1.3.0](https://github.com/vig-os/devkit/releases/tag/1.3.0) - 2026-07-15
+
+### Added
+
+- **Scaffold CI dependency-review gate** ([#1140](https://github.com/vig-os/devkit/issues/1140))
+  - Consumer `ci.yml` now runs a standalone `dependency-review` job
+    (`actions/dependency-review-action` v5, `fail-on-severity: high`) that
+    blocks PRs introducing known-vulnerable dependencies off GitHub's
+    dependency graph — no toolchain or container required.
+  - Guarded to public-repo pull requests (the action only diffs base/head on
+    PRs, and the dependency-graph API is unavailable on Free-plan private
+    repos), so private repos get a skipped-neutral run and auto-activate when
+    flipped public (#1039 pattern); `CI Summary` requires it without going red
+    on push/dispatch/private-repo skips.
 
 ### Changed
 
-- **Smoke-test deploy of 1.3.0-rc1** -- automated devcontainer release-pipeline validation; no functional changes
 - **Renovate dependency update** ([#1134](https://github.com/vig-os/devkit/pull/1134))
   - Update `actions/setup-node` from `v6.4.0` to `v6.5.0`
   - Update `cachix/install-nix-action` from `v31.10.7` to `v31.11.0`
@@ -115,6 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     fails fast unless the PR is mergeable, re-querying while GitHub is still
     computing the state (`UNKNOWN`). Keeps the invariant: never start the
     irreversible publish unless the merge can succeed.
+
 - **Migrate hand-added root `.gitignore` lines into `.gitignore.project` on upgrade** ([#1111](https://github.com/vig-os/devkit/issues/1111))
   - The [#1092](https://github.com/vig-os/devkit/issues/1092) fix made
     `.gitignore.project` the durable home for repo-root ignores, but the upgrade
@@ -130,6 +145,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     append-only and deduplicated, so it never reorders the consumer's existing
     entries and a second upgrade re-adds nothing (idempotent); it prints the
     count and list of migrated lines.
+
 - **Install project deps before building the release artifact** ([#1130](https://github.com/vig-os/devkit/issues/1130))
   - The `Build release artifact` step in `release-core.yml` ran `just bundle`
     without a preceding `just sync`, so a JS-Action consumer's bundler (`ncc`, a
@@ -139,6 +155,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The step now runs `just sync` (language-neutral: `npm ci` / `uv sync`) before
     `just bundle`, matching every other build job. No-op for consumers without a
     bundle recipe.
+
 - **Wire `core.hooksPath` for direnv consumers** ([#1112](https://github.com/vig-os/devkit/issues/1112))
   - In direnv / `nix develop` mode the dev-shell never set `core.hooksPath`, so
     commit-time hooks (pre-commit / commit-msg via prek) were silently inactive
