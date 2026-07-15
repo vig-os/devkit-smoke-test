@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.2.1-rc1** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -34,6 +32,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     banner + its `check-json` exclude) and must move together, else strict hooks
     reject files the new scaffold wrote.
   - Non-fatal; a floating (unpinned) input or a matching pin stays silent.
+
+### Changed
+
+- **Smoke-test deploy of 1.2.1-rc1** -- automated devcontainer release-pipeline validation; no functional changes
 
 ### Fixed
 
