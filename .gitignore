@@ -7,7 +7,8 @@
 # upgrade and appends a per-language fragment (Python / Node / Rust) detected
 # from the repo's marker files (pyproject.toml / package.json / Cargo.toml).
 # Do not hand-edit durable ignores here — they will not survive an upgrade.
-# Put repo-specific ignores in a committed file your team owns instead.
+# Put repo-specific root ignores in .gitignore.project (preserved on upgrade);
+# init-workspace.sh appends its contents here on every regeneration (#1092).
 
 # Environments
 .env
@@ -194,3 +195,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Repo-specific root .gitignore entries — yours to edit; upgrades never
+# overwrite this file. This is the durable committed home for repo-ROOT ignores:
+# git honors a root ignore only from the root .gitignore, which devkit
+# regenerates on every upgrade, so entries added HERE are appended to that
+# regenerated .gitignore and survive. Put durable repo-root ignores below (not
+# in the managed .gitignore, where hand edits are lost).
+#
+# Examples (uncomment / add your own):
+#   /scratch/
+#   /secrets.local.yaml
