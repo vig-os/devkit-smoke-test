@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.2.1-rc1** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -19,7 +21,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.2.0](https://github.com/vig-os/devkit-smoke-test/releases/tag/1.2.0) - 2026-07-14
+## [1.2.1] - TBD
+
+### Added
+
+- **Durable committed home for repo-root ignores (`.gitignore.project`)** ([#1092](https://github.com/vig-os/devkit/issues/1092))
+  - New preserved, consumer-owned `.gitignore.project` (mirroring `justfile.project`): the only committed place git honors for repo-ROOT ignores, since git reads root ignores solely from the managed root `.gitignore` that devkit regenerates on every upgrade. `init-workspace.sh` appends its contents to the regenerated `.gitignore` after the per-language fragments, so root-level consumer ignores survive every upgrade. The base `.gitignore` header and the `flake.nix` opt-in note now point here instead of advising an edit the upgrade destroys.
+- **Warn on flake pin / `DEVKIT_VERSION` skew** ([#1093](https://github.com/vig-os/devkit/issues/1093))
+  - A `--force` direnv/both upgrade that advances the scaffold now warns when the
+    consumer's pinned `vigos` flake `ref` lags the `DEVKIT_VERSION` being
+    written — the two ship coupled halves of the same change (e.g. #1053's JSONC
+    banner + its `check-json` exclude) and must move together, else strict hooks
+    reject files the new scaffold wrote.
+  - Non-fatal; a floating (unpinned) input or a matching pin stays silent.
+
+### Fixed
+
+- **Managed `.gitignore` rewrite no longer drops consumer-required ignores** ([#1092](https://github.com/vig-os/devkit/issues/1092))
+  - When the flake-hooks opt-in installs `.pre-commit-config.yaml` as a `/nix/store` symlink, the ignore for it is now seeded automatically on every (re)scaffold — gated strictly on the store-symlink condition, so a hand-managed consumer that commits a real `.pre-commit-config.yaml` file is never affected.
+  - The Node fragment now ignores the `tsc`/`ncc` declaration byproducts under `dist/src/` (`.d.ts` / `.d.ts.map` files embed absolute `file://` paths regenerated per checkout) while keeping the committed bundle `dist/index.js` and `dist/package.json` tracked — no blanket `dist/` ignore.
+- **Preserve customized lint configs `.pymarkdown` / `.yamllint` on upgrade** ([#1099](https://github.com/vig-os/devkit/issues/1099))
+  - Promoted the markdown-lint config `.pymarkdown` (the JSON pymarkdown reads),
+    the `.yamllint` config, and the `.pymarkdown.config.md` doc companion to
+    `PRESERVE_FILES`, so repo-specific `ignore:` globs and rule disables survive
+    `install.sh --force` instead of being silently overwritten (same class as
+    `.pre-commit-config.yaml` #878 and `.typos.toml` #913).
+  - The upgrade now prints a template diff against each preserved file so
+    lint-rule evolution stays visible. The comment-capable `.yamllint` /
+    `.pymarkdown.config.md` templates render the preserved provenance banner;
+    `.pymarkdown` is strict JSON and stays un-bannered, like `renovate.json`.
+- **Candidate releases no longer fail the draft/approval gate** ([#1095](https://github.com/vig-os/devkit/issues/1095))
+  - The scaffolded `release-core.yml` "Find and verify PR" step applied the draft + approval gate to every release kind, so a `release_kind=candidate` dispatch failed against a still-draft PR (`ERROR: PR #N is still in draft`). This was template drift: the #902 fix landed in devkit's own `release.yml` but was never mirrored into the scaffolded template consumers receive. The draft + approval checks are now guarded behind `release_kind=final`; candidates gate on CI only, consistent with `RELEASE_CYCLE.md`.
+
+## [1.2.0](https://github.com/vig-os/devkit/releases/tag/1.2.0) - 2026-07-14
 
 ### Added
 
@@ -103,7 +137,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.2.0** -- automated devcontainer release-pipeline validation; no functional changes
 - **`perf` is now an approved commit type** ([#1030](https://github.com/vig-os/devkit/issues/1030))
   - `perf` joins the approved commit-type allowlist in `nix/hooks.nix` (both rendered `.pre-commit-config.yaml` files), `DEFAULT_APPROVED_TYPES` (the default CI's `validate-commit-range` uses), and `docs/COMMIT_MESSAGE_STANDARD.md`. It is a standard [Conventional Commits](https://www.conventionalcommits.org/) type and was already used once in history; before this the live `commit-checks` job would reject the next `perf(...)` commit.
 - **Commit scopes are free-form** ([#1019](https://github.com/vig-os/devkit/issues/1019))
@@ -136,8 +169,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The scaffolded `promote-release.yml` header points at `docs/DOWNSTREAM_RELEASE.md` — the consumer's primary release-process documentation — but the scaffold never shipped it, leaving every consumer with a dangling reference. The doc is now a manifest-synced managed file (root copy is the SSoT), so the reference resolves inside consumer repos and refreshes on scaffold upgrades.
 - **Interim transitive npm vulnerability coverage via weekly lockfile maintenance** ([#1041](https://github.com/vig-os/devkit/issues/1041))
   - The Renovate preset never touched transitive npm dependencies, so vulnerabilities in packages only reachable through a parent (12 of 21 alerts in the `commit-action` pilot, including the only critical) were neither reported nor remediated. The preset now enables `lockFileMaintenance` (weekly, same Monday cadence), which regenerates the lockfile and picks up in-range fixes for indirect dependencies. This is an **interim** mechanism, not a full fix: alert-driven transitive remediation is unimplemented upstream ([renovatebot/renovate#41825](https://github.com/renovatebot/renovate/discussions/41825)) and the former `transitiveRemediation` option was removed from Renovate. devkit's own `renovate.json` drops its now-duplicated `lockFileMaintenance` block and inherits it from the preset.
+
 - **Renovate preset groups npm updates instead of one PR per package** ([#1047](https://github.com/vig-os/devkit/issues/1047))
   - The scaffolded `renovate-default.json` gave `github-actions` and `pep621` a `groupName` but left `npm` ungrouped, so npm consumers got one PR per package — each touching `package-lock.json` and `CHANGELOG.md`, so they conflicted pairwise and were effectively unlandable serially. npm now gets two grouping rules matching the other managers' style: `devDependencies` group across all update types ("npm dev dependencies"), and runtime `dependencies` minor/patch ("npm (minor and patch)") with majors staying as individual PRs. The existing `build(npm)` semantic-commit rule still applies to every npm PR (Renovate merges matching `packageRules` in order).
+
 - **`sync-main-to-dev` no longer deadlocks on new local actions** ([#1034](https://github.com/vig-os/devkit/issues/1034))
   - The `sync` job checked out `ref: dev` and then invoked a local `uses: ./.github/actions/...` composite, which GitHub resolves against the checked-out workspace. When `main` added or renamed a local action absent from `dev`, the job died on its first run — and the only PR that would carry the action onto `dev` was the very sync PR the job could no longer open. Dropping `ref: dev` builds against the triggering `main` SHA, where the action is guaranteed to exist; every downstream step already operates on `origin/main`/`origin/dev` or the API, so behavior is otherwise unchanged.
 - **`setup-devkit-toolchain` no longer forces Python/uv env on non-Python consumers** ([#1028](https://github.com/vig-os/devkit/issues/1028))
