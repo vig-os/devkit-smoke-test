@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.4.0-rc3** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -112,6 +110,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.4.0-rc3** -- automated devcontainer release-pipeline validation; no functional changes
 - **direnv scaffolds default to flake-generated pre-commit hooks** ([#1167](https://github.com/vig-os/devkit/issues/1167))
   - The direnv CI lane runs on the bare host runner (`resolve-toolchain` emits an
     empty container image), which lacks the devkit image's FHS loader and C++
