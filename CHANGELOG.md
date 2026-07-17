@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.3.1** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -19,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.3.1] - TBD
+## [1.3.1](https://github.com/vig-os/devkit/releases/tag/1.3.1) - 2026-07-17
 
 ### Added
 
@@ -48,7 +50,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.3.1-rc1** -- automated devcontainer release-pipeline validation; no functional changes
 - **Renovate dependency update** ([#1161](https://github.com/vig-os/devkit/pull/1161))
   - Update `actions/attest` from `v4.1.1` to `v4.2.0`
   - Update `vig-os/commit-action` from `v0.3.0` to `v0.3.1`
