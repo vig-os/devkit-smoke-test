@@ -1,11 +1,11 @@
 ---
 type: issue
-state: open
+state: closed
 created: 2026-07-09T16:13:52Z
-updated: 2026-07-09T16:13:52Z
+updated: 2026-07-10T10:11:00Z
 author: c-vigo
 author_url: https://github.com/c-vigo
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/221
+url: https://github.com/vig-os/devkit-smoke-test/issues/221
 comments: 0
 labels: chore, dependencies, area:ci
 assignees: none
@@ -13,10 +13,10 @@ milestone: none
 projects: none
 parent: none
 children: none
-synced: 2026-07-10T06:02:55.884Z
+synced: 2026-07-18T04:48:05.406Z
 ---
 
-# [Issue 221]: [Complete Dependabot→Renovate migration (remove dependabot.yml, cover pep621)](https://github.com/vig-os/devcontainer-smoke-test/issues/221)
+# [Issue 221]: [Complete Dependabot→Renovate migration (remove dependabot.yml, cover pep621)](https://github.com/vig-os/devkit-smoke-test/issues/221)
 
 ## Problem
 

@@ -1,11 +1,11 @@
 ---
 type: issue
 state: closed
-created: 2026-07-09T12:20:16Z
-updated: 2026-07-09T16:03:09Z
+created: 2026-07-10T15:41:44Z
+updated: 2026-07-17T07:47:04Z
 author: vig-os-release-app[bot]
 author_url: https://github.com/vig-os-release-app[bot]
-url: https://github.com/vig-os/devkit-smoke-test/issues/218
+url: https://github.com/vig-os/devkit-smoke-test/issues/231
 comments: 0
 labels: bug
 assignees: none
@@ -13,15 +13,15 @@ milestone: none
 projects: none
 parent: none
 children: none
-synced: 2026-07-18T04:48:05.766Z
+synced: 2026-07-18T04:48:05.033Z
 ---
 
-# [Issue 218]: [Release 0.5.0 failed — automatic rollback](https://github.com/vig-os/devkit-smoke-test/issues/218)
+# [Issue 231]: [Release 1.0.0 failed — automatic rollback](https://github.com/vig-os/devkit-smoke-test/issues/231)
 
-Release 0.5.0 failed during the automated release workflow.
+Release 1.0.0 failed during the automated release workflow.
 
-**Workflow Run:** [View logs](https://github.com/vig-os/devcontainer-smoke-test/actions/runs/29016973970)
-**Release PR:** #
+**Workflow Run:** [View logs](https://github.com/vig-os/devkit-smoke-test/actions/runs/29104346025)
+**Release PR:** #230
 
 **Automatic rollback attempted:**
 - Release branch reset to pre-finalization state (best-effort)
