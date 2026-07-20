@@ -5,7 +5,7 @@ created: 2026-07-09T12:20:16Z
 updated: 2026-07-09T16:03:09Z
 author: vig-os-release-app[bot]
 author_url: https://github.com/vig-os-release-app[bot]
-url: https://github.com/vig-os/devcontainer-smoke-test/issues/218
+url: https://github.com/vig-os/devkit-smoke-test/issues/218
 comments: 0
 labels: bug
 assignees: none
@@ -13,10 +13,10 @@ milestone: none
 projects: none
 parent: none
 children: none
-synced: 2026-07-10T06:02:56.197Z
+synced: 2026-07-18T04:48:05.766Z
 ---
 
-# [Issue 218]: [Release 0.5.0 failed — automatic rollback](https://github.com/vig-os/devcontainer-smoke-test/issues/218)
+# [Issue 218]: [Release 0.5.0 failed — automatic rollback](https://github.com/vig-os/devkit-smoke-test/issues/218)
 
 Release 0.5.0 failed during the automated release workflow.
 
