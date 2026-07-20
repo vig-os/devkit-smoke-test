@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.4.0-rc6** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -129,7 +131,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.4.0-rc5** -- automated devcontainer release-pipeline validation; no functional changes
 - **Renovate: update `github-backup` from `==0.64.0` to `==0.64.2`** ([#1213](https://github.com/vig-os/devkit/pull/1213))
 - **direnv scaffolds default to flake-generated pre-commit hooks** ([#1167](https://github.com/vig-os/devkit/issues/1167))
   - The direnv CI lane runs on the bare host runner (`resolve-toolchain` emits an
@@ -147,6 +148,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Detect host Nix probe scrubs the ambient `NIX_CONFIG`** ([#1216](https://github.com/vig-os/devkit/issues/1216))
+  - The direnv-mode "Detect host Nix" step captured `nix --version 2>&1` (#1198)
+    with the runner's ambient `NIX_CONFIG` still in effect. On a self-hosted
+    runner whose service environment carries a malformed `NIX_CONFIG` (observed
+    on exo-fleet's meatgrinder), nix rejects the config before printing the
+    version, so the detect log recorded a `syntax error in configuration` parse
+    error instead of the version string the diagnostic aims to capture. The probe
+    now runs `env -u NIX_CONFIG nix --version 2>&1`, keeping the `2>&1` fold for
+    other failure shapes, so the log shows the real version even when the
+    runner's environment is broken. Non-fatal before the fix (the "Configure host
+    Nix" step rewrites a clean `NIX_CONFIG`), diagnostic-only impact.
 - **uvx tools with native wheels load libstdc++ in direnv-mode CI** ([#1181](https://github.com/vig-os/devkit/issues/1181))
   - On a non-Python direnv-mode consumer the CI preamble keeps the Nix CPython
     on `PATH`, whose loader does not search `/usr/lib`, so a `uvx`-run tool's
