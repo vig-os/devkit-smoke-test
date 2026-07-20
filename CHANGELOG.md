@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.4.0** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -21,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.4.0](https://github.com/vig-os/devkit/releases/tag/1.4.0) - 2026-07-20
+## [1.4.0] - TBD
 
 ### Added
 
@@ -131,6 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.4.0** -- automated devcontainer release-pipeline validation; no functional changes
 - **Renovate: update `github-backup` from `==0.64.0` to `==0.64.2`** ([#1213](https://github.com/vig-os/devkit/pull/1213))
 - **direnv scaffolds default to flake-generated pre-commit hooks** ([#1167](https://github.com/vig-os/devkit/issues/1167))
   - The direnv CI lane runs on the bare host runner (`resolve-toolchain` emits an
