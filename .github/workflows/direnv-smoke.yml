@@ -155,12 +155,11 @@ jobs:
             sleep 5
           done
 
-          # Docker-based scaffolding can leave bind-mounted files owned by root;
-          # repair ownership so the following steps can read/execute them.
-          if [ ! -r ".github/actions/setup-devkit-toolchain/action.yml" ] || \
-             { [ -e "flake.nix" ] && [ ! -r "flake.nix" ]; }; then
-            sudo chown -R "$(id -u):$(id -g)" .
-          fi
+          # The docker scaffold writes bind-mounted files as root, so the whole
+          # tree is root-owned on a hosted runner. Repair ownership unconditionally
+          # (not just readability): `nix develop` must WRITE flake.lock, which a
+          # root-owned file/dir refuses ("Permission denied").
+          sudo chown -R "$(id -u):$(id -g)" .
 
           # Sanity: the direnv scaffold must ship the composite action and a
           # repo-root flake for the dev-shell build.
