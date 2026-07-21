@@ -161,6 +161,17 @@ jobs:
           # root-owned file/dir refuses ("Permission denied").
           sudo chown -R "$(id -u):$(id -g)" .
 
+          # install.sh's own host-side git setup runs BEFORE this ownership
+          # repair and fails on the still-root-owned tree (".git: Permission
+          # denied") — its git phase warns rather than aborts. Initialize the
+          # repo here instead: `prek run --all-files` needs a git work tree
+          # with tracked files.
+          if [ ! -d .git ]; then
+            git init -b main
+            git add -A
+            git commit -m "chore: initial project scaffold"
+          fi
+
           # Sanity: the direnv scaffold must ship the composite action and a
           # repo-root flake for the dev-shell build.
           test -f .github/actions/setup-devkit-toolchain/action.yml
