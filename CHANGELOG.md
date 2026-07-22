@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.4.1-rc2** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -48,6 +46,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     trigger's cron (default `0 2 * * *`). Both keys are validated loudly at
     scaffold time (git ref-format for the branch, a 5-field cron check) and
     persisted across re-scaffolds.
+
+### Changed
+
+- **Smoke-test deploy of 1.4.1-rc2** -- automated devcontainer release-pipeline validation; no functional changes
 
 ### Fixed
 
