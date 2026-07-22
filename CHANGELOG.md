@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.4.1-rc3** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -22,6 +24,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.4.1] - TBD
 
 ### Added
+
+- **`setup-labels`: repo-local taxonomy extension file** ([#1254](https://github.com/vig-os/devkit/issues/1254))
+  - Optional, non-devkit-managed `.github/label-taxonomy.local.toml` (same
+    `[[labels]]` schema) lets a consuming repo declare repo-specific labels
+    that survive devkit upgrades.
+  - `setup-labels` treats the union of both files as the effective taxonomy:
+    extension labels are created/updated in the normal reconciliation pass, and
+    `--prune` only deletes labels absent from both files.
+  - Local-wins collision policy: an extension entry with the same `name`
+    overrides the canonical color/description.
 
 - **Scheduled security scan now covers `dev` as well as `main`** ([#1237](https://github.com/vig-os/devkit/issues/1237))
   - `security-scan.yml` gains a `ref` matrix (`main`, `dev`) so the nightly
@@ -46,10 +58,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     trigger's cron (default `0 2 * * *`). Both keys are validated loudly at
     scaffold time (git ref-format for the branch, a 5-field cron check) and
     persisted across re-scaffolds.
-
-### Changed
-
-- **Smoke-test deploy of 1.4.1-rc2** -- automated devcontainer release-pipeline validation; no functional changes
 
 ### Fixed
 
