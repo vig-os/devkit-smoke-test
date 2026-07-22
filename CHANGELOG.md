@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.4.1-rc2** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -46,10 +48,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     trigger's cron (default `0 2 * * *`). Both keys are validated loudly at
     scaffold time (git ref-format for the branch, a 5-field cron check) and
     persisted across re-scaffolds.
-
-### Changed
-
-- **Smoke-test deploy of 1.4.1-rc1** -- automated devcontainer release-pipeline validation; no functional changes
 
 ### Fixed
 
@@ -97,15 +95,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     scaffolded `flake.nix` reads `DEVKIT_WORKFLOW` from `.vig-os` and forwards
     it, so a trunk direnv consumer's generated guard follows the model out of
     the box. gitflow is a no-op, leaving existing consumers unchanged.
-- **`install.sh --docker` restores scaffold ownership before the git phase** ([#1235](https://github.com/vig-os/devkit/issues/1235))
-  - Under docker the scaffold container runs as root, so its bind-mounted output
-    landed root-owned on the host and the host-side git phase (`setup_git_repo`,
-    warn-not-fail by design) could not write to it — the installer "succeeded"
-    but left a root-owned, git-less tree that every docker caller had to repair
-    by hand. `install.sh` now reuses the image in a throwaway container to
-    `chown` the tree back to the invoking user before the git phase, so the git
-    setup succeeds normally. Rootless podman already maps container-root to the
-    invoking user, so the repair runs on the docker runtime only.
+  - The template forwards `workflow` only when the resolved builder accepts it
+    ([#1249](https://github.com/vig-os/devkit/issues/1249)): the `vigos` input
+    deliberately floats on the default branch, so a fresh scaffold can resolve
+    a devkit `main` that predates the argument — unconditional forwarding then
+    failed eval on first shell entry (`called with unexpected argument
+    'workflow'`). The call site now gates `inherit workflow;` behind a
+    `builtins.functionArgs … ? workflow` check, so older builders fall back to
+    their gitflow default instead of breaking the scaffold.
+- **`install.sh --docker` restores scaffold ownership before the git phase, keyed on the observed post-scaffold state** ([#1235](https://github.com/vig-os/devkit/issues/1235), [#1248](https://github.com/vig-os/devkit/issues/1248))
+  - Under real docker the scaffold container runs as root, so its bind-mounted
+    output landed root-owned on the host and the host-side git phase
+    (`setup_git_repo`, warn-not-fail by design) could not write to it — the
+    installer "succeeded" but left a root-owned, git-less tree that every docker
+    caller had to repair by hand. `install.sh` now reuses the image in a
+    throwaway container to `chown` the tree back to the invoking user before the
+    git phase, so the git setup succeeds normally.
+  - The repair is conditioned on the observed post-scaffold ownership, not the
+    runtime CLI name: it runs only when the scaffolded tree contains files not
+    owned by the invoking user. Rootless podman — in any flavor, including a
+    `docker` compat shim — maps container-root to the invoking user, so its
+    output is already correctly owned and an unconditional in-container `chown`
+    would have flipped the tree to an unmapped subuid, breaking the git phase.
 
 ### Security
 
