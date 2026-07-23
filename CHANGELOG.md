@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.4.1** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -19,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.4.1] - TBD
+## [1.4.1](https://github.com/vig-os/devkit/releases/tag/1.4.1) - 2026-07-23
 
 ### Added
 
@@ -32,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `--prune` only deletes labels absent from both files.
   - Local-wins collision policy: an extension entry with the same `name`
     overrides the canonical color/description.
+
 - **Scheduled security scan now covers `dev` as well as `main`** ([#1237](https://github.com/vig-os/devkit/issues/1237))
   - `security-scan.yml` gains a `ref` matrix (`main`, `dev`) so the nightly
     vulnix gate scans the `dev` image closure alongside the default-branch one.
@@ -55,10 +58,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     trigger's cron (default `0 2 * * *`). Both keys are validated loudly at
     scaffold time (git ref-format for the branch, a 5-field cron check) and
     persisted across re-scaffolds.
-
-### Changed
-
-- **Smoke-test deploy of 1.4.1-rc4** -- automated devcontainer release-pipeline validation; no functional changes
 
 ### Fixed
 
@@ -151,6 +150,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     is extended from 2026-07-28 to 2026-08-18. The upstream fix (gawk 5.4.1) is
     still only on nixpkgs `staging` and has not reached the pinned `nixos-26.05`
     channel, so the planned rev-advance remains unavailable.
+
 - **Renew lapsed curl + openssh `.vulnixignore` exceptions** ([#1257](https://github.com/vig-os/devkit/issues/1257))
   - The curl 8.20.0 advisory batch (18 CVEs, from [#941](https://github.com/vig-os/devkit/issues/941))
     and the openssh `CVE-2026-60002` client use-after-free (from [#963](https://github.com/vig-os/devkit/issues/963))
