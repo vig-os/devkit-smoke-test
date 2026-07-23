@@ -59,6 +59,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Upgrade no longer deploys the template `.pre-commit-config.yaml` over flake-generated hooks** ([#1255](https://github.com/vig-os/devkit/issues/1255))
+  - On a flake-hooks consumer ([#1167](https://github.com/vig-os/devkit/issues/1167))
+    the generated config is a gitignored `/nix/store` symlink that only
+    materializes on shell entry, so a fresh checkout/worktree has no file for
+    the preserve list to protect — an `install.sh --force` upgrade then
+    deployed the scaffold template YAML, which silently shadowed the generated
+    config (git-hooks.nix refuses to overwrite an existing file) and dropped
+    the consumer's `hooks`/`hooksExcludes` customizations. Pre-existing since
+    1.4.0; gitignored, so CI and PRs were unaffected.
+  - The upgrade now detects the opt-in from the preserved `flake.nix` itself
+    (an active `hooks`/`hooksExcludes` argument — exactly `mkProjectShell`'s
+    generation trigger), skips the template YAML in both the copy and the
+    `--preview` report, and still seeds the `.pre-commit-config.yaml` gitignore
+    entry so the regenerated root `.gitignore` stays correct.
 - **`mkProjectShell`: `extraPackages` Python env no longer silently shadowed** ([#1230](https://github.com/vig-os/devkit/issues/1230))
   - A `pythonXX.withPackages` env passed through `extraPackages` — the
     documented way to add Python libraries to a project shell — was shadowed on
@@ -134,6 +148,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     is extended from 2026-07-28 to 2026-08-18. The upstream fix (gawk 5.4.1) is
     still only on nixpkgs `staging` and has not reached the pinned `nixos-26.05`
     channel, so the planned rev-advance remains unavailable.
+
+- **Renew lapsed curl + openssh `.vulnixignore` exceptions** ([#1257](https://github.com/vig-os/devkit/issues/1257))
+  - The curl 8.20.0 advisory batch (18 CVEs, from [#941](https://github.com/vig-os/devkit/issues/941))
+    and the openssh `CVE-2026-60002` client use-after-free (from [#963](https://github.com/vig-os/devkit/issues/963))
+    exceptions are extended to 2026-08-15 after the curl block lapsed on
+    2026-07-22 and reddened the nightly scan. The fixes (curl 8.21.0, openssh
+    10.4p1) exist upstream but have not reached the pinned `nixos-26.05` channel
+    (still curl 8.20.0 / openssh 10.3p1), so the planned rev-advance remains
+    unavailable.
 
 ## [1.4.0](https://github.com/vig-os/devkit/releases/tag/1.4.0) - 2026-07-20
 
