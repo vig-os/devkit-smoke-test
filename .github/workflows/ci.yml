@@ -1,4 +1,5 @@
 # Managed by vigOS devkit — regenerated on upgrade; local edits are lost.
+# DRIFT-PROOF: hand-edit of a managed file — this line must turn the scaffold-drift job red (devkit#1295 validation)
 # Customize in justfile.project. Bugs / missing tools: https://github.com/vig-os/devkit/issues
 
 # CI Workflow (mode-aware)
