@@ -7,7 +7,7 @@
 
 # Scaffold/image version pin (managed by release automation). Readers also
 # accept the legacy DEVCONTAINER_VERSION key for un-migrated consumers (#781).
-DEVKIT_VERSION=1.5.0-rc3
+DEVKIT_VERSION=1.5.0
 
 # Delivery mode: devcontainer | direnv | both | bare. Ships empty (= unset:
 # resolved and written back on scaffold) so an aborted upgrade can never
@@ -116,4 +116,4 @@ DEVKIT_UPGRADE_EXCLUDE=
 # construction (the scaffold never overwrites them). Pure runtime gate — CI reads
 # it via resolve-toolchain's `drift-check` output, so flipping it takes effect
 # with no re-scaffold; the value round-trips across `--force` upgrades (#1295).
-DEVKIT_DRIFT_CHECK=false
+DEVKIT_DRIFT_CHECK=
