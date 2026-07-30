@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.5.0](https://github.com/vig-os/devkit/releases/tag/1.5.0) - 2026-07-30
+## [1.5.1](https://github.com/vig-os/devkit/releases/tag/1.5.1) - 2026-07-30
 
 ### Added
 
@@ -48,6 +48,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     user-bound, expiring, single-owner). The workflow fails fast with a clear
     message when the secrets are absent, and the commit identity is configurable
     and kept off the agent blocklist.
+  - The published adoption commit is **GitHub-signed**
+    ([#1308](https://github.com/vig-os/devkit/issues/1308)): the in-shell commit
+    stays a staging artifact (hooks run, message validated) and its tree is
+    replayed through the git-data API with the App token — blobs → tree (with
+    explicit per-entry modes, so executable bits survive) → commit → ref, with
+    deletions as null-sha entries and a force-updated branch ref for the
+    within-train reuse semantics. Consumers' Signed-commits rulesets stay fully
+    enforced; no bypass actors are needed anywhere.
 - **Scaffold-drift CI gate (DEVKIT_DRIFT_CHECK)** ([#1295](https://github.com/vig-os/devkit/issues/1295))
   - The scaffolded `ci.yml` gains a `scaffold-drift` job that re-runs the pinned
     devkit version's scaffold over the checkout and fails a PR whose managed
@@ -113,6 +121,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`install.sh` prefers a responsive docker over podman in runtime auto-detection** ([#1305](https://github.com/vig-os/devkit/issues/1305))
+  - With both runtimes on PATH (GitHub `ubuntu-latest` runners), auto-detection
+    picked the preinstalled podman, whose stale system crun rejects podman ≥ 5's
+    OCI configs (`crun: unknown version specified`) — the first live
+    `devkit-upgrade` dispatch died at the install step on exactly this.
+    Detection now prefers docker when its daemon responds and falls back to
+    podman: podman-only hosts are unchanged, a dead docker daemon still yields
+    podman, and explicit `--docker`/`--podman` keep overriding. The
+    `devkit-upgrade.yml` template also passes `--docker` explicitly, so the
+    choice rides in the scaffold independent of the fetched installer.
+
 - **`just test` no longer fails a Python repo with zero collected tests** ([#1281](https://github.com/vig-os/devkit/issues/1281))
   - The scaffolded `justfile.project` `test`/`test-cov` recipes gate on
     `pyproject.toml` presence, so a consumer with a `pyproject.toml` but no test
@@ -174,6 +193,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Renovate: update `github-backup` from `==0.64.2` to `==0.65.0`** ([#1314](https://github.com/vig-os/devkit/pull/1314))
+- **Renovate dependency update** ([#1313](https://github.com/vig-os/devkit/pull/1313))
+  - Update `actions/attest` from `v4.2.0` to `v4.2.1`
+  - Update `docker/login-action` from `v4.5.1` to `v4.6.0`
+- **Renovate: update `github/codeql-action` from `e4fba86` to `f205ea1`** ([#1312](https://github.com/vig-os/devkit/pull/1312))
 - **Renovate: update `testcontainers` from `==4.14.2` to `==4.15.0`** ([#1269](https://github.com/vig-os/devkit/pull/1269))
 - **Renovate: update `@devcontainers/cli` from `0.87.0` to `0.88.0`** ([#1268](https://github.com/vig-os/devkit/pull/1268))
 - **Renovate: update `astral-sh/setup-uv` from `v8.3.2` to `v9.0.0`** ([#1270](https://github.com/vig-os/devkit/pull/1270))
