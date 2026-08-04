@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.6.0-rc1** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -19,7 +21,108 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.5.1](https://github.com/vig-os/devkit-smoke-test/releases/tag/1.5.1) - 2026-07-30
+## [1.6.0] - TBD
+
+### Added
+
+- **Tombstoned tag names fail with the real cause** ([#1319](https://github.com/vig-os/devkit/issues/1319))
+  - The downstream `release-publish.yml` template now recognizes the `GH013`
+    "creations restricted" signature on tag push and release creation — the mark
+    of a tag name permanently retired because its published release was deleted
+    under org-enforced immutability — and fails with a "version burned — re-cut
+    required" diagnosis instead of a generic push/create error.
+  - Devkit's `promote-release.yml` cross-repo gate no longer only advises
+    "wait and retry" when no downstream release exists: it names the tombstone
+    as a possible cause and points at the point-of-no-return runbook.
+
+### Changed
+
+- **Security exception expiries land on a Wednesday** ([#1337](https://github.com/vig-os/devkit/issues/1337))
+  - `docs/CONTAINER_SECURITY.md` now documents an expiry grid for the exception
+    registers: every `Expiration:` date is picked on a Wednesday, so an entry
+    turns red on the Thursday *after* the week's Renovate `nixpkgs` bump has
+    merged and the first nightly scan has produced a findings delta against the
+    new closure — the point at which a review can delete entries instead of
+    blindly extending them. Earlier weekdays force that blind extension (or, on
+    a Sunday, take unrelated PRs red before the week's Renovate PRs even open);
+    later ones lapse over an unattended weekend, blocking every commit.
+  - All 12 non-conforming dates across `.vulnixignore`, `.trivyignore` and
+    `.github/dependency-review-allow.txt` were snapped onto the grid (shift
+    ≤ 3 days each). This is a scheduling change only — no risk assessment was
+    re-opened or altered. Notably the glibc block no longer expires on a
+    Saturday, where it would have turned red unattended on Sunday 2026-08-16.
+  - Convention enforced by review, not by `check-expirations`: the validator is
+    unchanged, since it is scaffolded into consumer repos whose release cadence
+    may differ.
+- **Consumer Renovate ignores devkit-managed workflows and actions** ([#1332](https://github.com/vig-os/devkit/issues/1332))
+  - The shipped preset (`.github/renovate-default.json`) now disables Renovate
+    for the managed workflow set and the two managed composite actions
+    (`setup-devkit-toolchain`, `resolve-toolchain`) via a trailing
+    `enabled: false` packageRule. Their SHA-pinned action digests advance
+    upstream in devkit and ship with each release, so downstream Renovate no
+    longer opens duplicate pin-bump PRs that the next `devkit-upgrade` clobbers.
+  - The rule is last, so a consumer can opt a specific managed file back in from
+    their preserved `renovate.json` (later rules win). Devkit's own root
+    `renovate.json` re-enables its root workflows/actions so devkit keeps
+    advancing the pins it owns.
+- **Renovate: update `github/codeql-action` from `f205ea1` to `d1ba80a`** ([#1330](https://github.com/vig-os/devkit/pull/1330))
+- **Renovate: update `aquasecurity/trivy` from `v0.72.0` to `v0.73.0`** ([#1331](https://github.com/vig-os/devkit/pull/1331))
+- **Renovate: update `github-backup` from `==0.65.0` to `==0.65.1`** ([#1324](https://github.com/vig-os/devkit/pull/1324))
+- **Release runbook: restart point of no return** ([#1318](https://github.com/vig-os/devkit/issues/1318))
+  - `docs/RELEASE_CYCLE.md` now documents that deleting a **published** GitHub
+    Release under org-enforced immutability permanently tombstones its tag name
+    (`GH013`), and adds a recovery-procedures subsection: finalize restarts are
+    free only while every release object in the pipeline (devkit **and**
+    `devkit-smoke-test`) is still a draft; once smoke-test publishes its final,
+    the version is committed and a restart means burning it (re-cut as the next
+    patch). Lesson from the 1.5.0 ghost.
+
+### Fixed
+
+- **Trunk consumers' Renovate preset now targets `main`** ([#1336](https://github.com/vig-os/devkit/issues/1336))
+  - The trunk render (`render_workflow_model`) retargets `baseBranchPatterns`
+    from `["dev"]` to `["main"]` in the scaffolded `.github/renovate-default.json`.
+    Previously a `DEVKIT_WORKFLOW=trunk` consumer kept `["dev"]` while having no
+    `dev` branch, leaving Renovate with nothing to operate on — effectively
+    inert. Existing trunk repos self-heal on their next `devkit-upgrade`.
+
+### Security
+
+- **Advance the nixpkgs pin and drop the gawk exception block** ([#1328](https://github.com/vig-os/devkit/issues/1328))
+  - Advanced the pinned `nixpkgs` rev (`flake.lock`) from nixos-26.05
+    @ `8623c4c2` (2026-07-26) to @ `531670d8` (2026-08-03), which is the first
+    pinned-channel rev to ship **gawk 5.4.1**. The rebuilt closure confirms it.
+  - Removed the gawk 5.4.0 CERT-PL block (CVE-2026-40467, -40468, -40469,
+    -40553) instead of renewing it a third time. It had been extended at #1240
+    and again at the #1273 pin advance only because the fix sat in nixpkgs
+    `staging` as a stdenv mass-rebuild, leaving the "advance the rev" lever with
+    nowhere to land.
+  - The before/after `vulnix` closure diff is exactly those four CVEs
+    (59 → 55 unique advisories) with nothing new appearing, and the gate passes
+    on 27 exceptions (down from 31).
+  - The rest of the register was re-verified against the new rev and nothing
+    else became droppable: fzf (0.72.0), libssh2 (1.11.1, still carrying no
+    6603x patch), unbound (1.25.1) and podman (5.8.2) are all unchanged, so
+    those blocks are retained with a 2026-08-04 re-verification note.
+- **vulnix register: except the libssh2 malicious-server batch, prune five dead exceptions** ([#1327](https://github.com/vig-os/devkit/issues/1327), [#1322](https://github.com/vig-os/devkit/issues/1322), [#1323](https://github.com/vig-os/devkit/issues/1323))
+  - New time-boxed `.vulnixignore` block (expires 2026-08-31) for the three
+    HIGH libssh2 1.11.1 CVEs disclosed 2026-07-24 (CVE-2026-66033, -66034,
+    -66035) that turned the nightly security scan red on both refs from
+    2026-07-31. All three are client-side flaws requiring a connection to a
+    malicious SSH server; libssh2 enters the closure only as curl's scp/sftp
+    backend. Upstream has published no release since 1.11.1 and the nixpkgs
+    patches (NixOS/nixpkgs#547491) are still on `staging`, so no rev-advance is
+    available.
+  - Five exceptions removed as dead — each already fixed at the pinned rev by
+    the #1273 pin advance, which the register was never reconciled against:
+    libssh2 CVE-2026-55200, gzip CVE-2026-41992 and libxml2 CVE-2026-11979
+    (CVE-named nixpkgs patches, which vulnix credits), plus socat
+    CVE-2026-56123 (1.8.1.3) and ldns CVE-2026-10846 (1.9.2). Two of them had
+    lapsed on 2026-08-03, failing `check-expirations` on every branch.
+  - podman CVE-2026-57231 renewed to 2026-08-31 (re-verified: `nixos-26.05`
+    still ships 5.8.2 and the release-26.05 backport is still a draft).
+
+## [1.5.1](https://github.com/vig-os/devkit/releases/tag/1.5.1) - 2026-07-30
 
 ### Added
 
@@ -73,6 +176,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `resolve-toolchain`'s `drift-check` output, so flipping it needs no
     re-scaffold — and the value round-trips across `--force` upgrades. Runs on
     PRs only (the ~1.5 GiB image pull); an invalid value fails the scaffold.
+
 - **Solo/private-repo adoption profile** ([#1285](https://github.com/vig-os/devkit/issues/1285))
   - New `docs/SOLO_ADOPTION.md`: the one document a single-user, private repo
     follows to adopt devkit without the team/traceability layer, expressed as a
@@ -83,6 +187,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     the `renovate` judgment call and forward-drift on upgrades, and cross-links
     the adoption notes that trip solo adopters (#1280, #1281, #1283). Linked
     from the README install section and `docs/MIGRATION.md`.
+
 - **Scaffold-time Refs policy knob (DEVKIT_REFS_POLICY)** ([#1282](https://github.com/vig-os/devkit/issues/1282))
   - A new `.vig-os` manifest key drives the `Refs:`-line enforcement of both the
     `validate-commit-msg` pre-commit hook and CI's `validate-commit-range` from a
@@ -90,6 +195,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     today's behavior), `optional` (any approved type may omit it), and `required`
     (every type, `chore` included, must carry a `Refs:` line). Absent key => a
     byte-identical scaffold; the value round-trips across `--force` upgrades.
+
 - **Preflight abort on non-main default branches** ([#1283](https://github.com/vig-os/devkit/issues/1283))
   - Scaffolding assumes the default branch is `main` (the branch-name hook,
     `ci.yml` and its workflow triggers all key off it). On a legacy `master`
@@ -99,6 +205,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     local branch) and refuses **before** writing anything, printing the rename
     recipe. A topic/`dev` branch of a repo that already has `main` proceeds
     unchanged; `--preview` warns without aborting; `--skip-preflight` bypasses.
+
 - **Manifest-driven scaffold feature opt-outs (DEVKIT_FEATURES_DISABLED)** ([#1284](https://github.com/vig-os/devkit/issues/1284))
   - New `.vig-os` key: a comma-separated, whitespace-tolerant list of scaffold
     feature groups a repo opts out of. Disabled groups are never scaffolded,
@@ -115,10 +222,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `prepare-release-extension.yml`) and `renovate.json` are never pruned when
     their feature is disabled — they are left in place with a notice.
 
-### Changed
-
-- **Smoke-test deploy of 1.5.1** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Fixed
 
 - **`install.sh` prefers a responsive docker over podman in runtime auto-detection** ([#1305](https://github.com/vig-os/devkit/issues/1305))
@@ -131,6 +234,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     podman, and explicit `--docker`/`--podman` keep overriding. The
     `devkit-upgrade.yml` template also passes `--docker` explicitly, so the
     choice rides in the scaffold independent of the fetched installer.
+
 - **`just test` no longer fails a Python repo with zero collected tests** ([#1281](https://github.com/vig-os/devkit/issues/1281))
   - The scaffolded `justfile.project` `test`/`test-cov` recipes gate on
     `pyproject.toml` presence, so a consumer with a `pyproject.toml` but no test
@@ -140,6 +244,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     consumers silently skip — while every other nonzero exit still fails. This
     is a template-only change; preserved consumer copies of `justfile.project`
     keep their own recipes (the #877 repair only appends missing ones).
+
 - **Undotted `typos.toml` no longer collides with the template `.typos.toml`** ([#1280](https://github.com/vig-os/devkit/issues/1280))
   - The `typos` tool reads config from `.typos.toml`, `_typos.toml`, or the
     undotted `typos.toml`. The scaffold guarded the first two (a preserved
@@ -150,6 +255,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     is now treated exactly like the legacy `_typos.toml` case: the consumer file
     stays the single active config, the template copy is not shipped, and the
     skip is mirrored in `--preview` and named in the scaffold surface message.
+
 - **sync-issues cache cleanup no longer silently skips on early job failure** ([#1278](https://github.com/vig-os/devkit/issues/1278))
   - The `if: always()` "Delete old cache" step calls the `retry` shim, which
     only exists after toolchain setup. When the job died beforehand the shim
@@ -170,6 +276,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     existing `TARGET_BRANCH` pattern; the allowlist-validated scaffold default
     stays the safe literal fallback. First consumer hit: vig-os/org-config#80,
     which carried a local forward-port of this fix until the template shipped it.
+
 - **Advance the nixpkgs pin and drop the propagated vulnix exception blocks** ([#1273](https://github.com/vig-os/devkit/issues/1273))
   - Advanced the pinned `nixpkgs` rev (`flake.lock`) from nixos-26.05
     @ `34268251` (2026-06-22) to @ `8623c4c2` (2026-07-26). The before/after
