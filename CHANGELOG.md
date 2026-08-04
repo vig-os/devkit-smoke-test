@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.6.0** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -21,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [1.6.0](https://github.com/vig-os/devkit/releases/tag/1.6.0) - 2026-08-04
+## [1.6.0] - TBD
 
 ### Added
 
@@ -37,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.6.0** -- automated devcontainer release-pipeline validation; no functional changes
 - **Security exception expiries land on a Wednesday** ([#1337](https://github.com/vig-os/devkit/issues/1337))
   - `docs/CONTAINER_SECURITY.md` now documents an expiry grid for the exception
     registers: every `Expiration:` date is picked on a Wednesday, so an entry
