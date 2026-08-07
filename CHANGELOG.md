@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smoke-test deploy of 1.7.0-rc5** -- automated devcontainer release-pipeline validation; no functional changes
+
 ### Deprecated
 
 ### Removed
@@ -31,7 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.7.0-rc4** -- automated devcontainer release-pipeline validation; no functional changes
 - **Stamped workflows authenticate with App Client IDs — new org secret required** ([#1365](https://github.com/vig-os/devkit/issues/1365))
   - **Action required before upgrading:** create a `DEVKIT_UPGRADE_APP_CLIENT_ID`
     secret (org or repo) holding the upgrade App's Client ID (`Iv23li…`).
