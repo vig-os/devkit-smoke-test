@@ -19,6 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [1.8.0](https://github.com/vig-os/devkit-smoke-test/releases/tag/1.8.0) - 2026-08-12
+
+### Changed
+
+- **Smoke-test deploy of 1.8.0** -- automated devcontainer release-pipeline validation; no functional changes
+- **Smoke-test deploy of 1.8.0-rc4** -- automated devcontainer release-pipeline validation; no functional changes
+
 ## [1.7.0](https://github.com/vig-os/devkit-smoke-test/releases/tag/1.7.0) - 2026-08-08
 
 ### Added
