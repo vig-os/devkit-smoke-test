@@ -108,7 +108,7 @@ DEVKIT_SYNC_SCHEDULE=
 # written back only for a non-empty value. Strict name charset
 # ([A-Za-z0-9._-], no leading `-`/`.`, <= 255 chars), guarded loudly; the rendered
 # scalar is single-quoted, so a name like `true` or `0755` stays a string.
-DEVKIT_COMMIT_APP_ENVIRONMENT=
+DEVKIT_COMMIT_APP_ENVIRONMENT=commit-app
 
 # Scaffold feature groups this repo opts OUT of — a comma-separated,
 # whitespace-tolerant subset of: release, renovate, sync-issues, scanning,
