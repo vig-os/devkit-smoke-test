@@ -124,6 +124,7 @@ jobs:
           fi
 
   sync:
+    environment: 'commit-app'
     name: Merge main into dev via PR
     needs: [resolve-toolchain, check]
     if: needs.check.outputs.up_to_date != 'true'

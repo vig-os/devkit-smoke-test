@@ -64,10 +64,10 @@ on:  # yamllint disable-line rule:truthy
       # deliver, and the `finalize` job's own `environment:` supplies them instead.
       COMMIT_APP_CLIENT_ID:
         description: "GitHub App client ID used to mint the verified-commit token"
-        required: true
+        required: false
       COMMIT_APP_PRIVATE_KEY:
         description: "GitHub App private key used to mint the verified-commit token"
-        required: true
+        required: false
     outputs:
       version:
         description: "Resolved release version"
@@ -375,6 +375,7 @@ jobs:
           echo "  Dry-run:      $DRY_RUN"
 
   finalize:
+    environment: 'commit-app'
     name: Finalize Release Core
     needs: validate
     runs-on: ubuntu-26.04

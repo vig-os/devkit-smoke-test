@@ -70,6 +70,7 @@ jobs:
           registry-username: ${{ github.actor }}
 
   sync:
+    environment: 'commit-app'
     needs: [resolve-toolchain]
     runs-on: ubuntu-26.04
     container:

@@ -137,6 +137,7 @@ jobs:
     secrets: inherit
 
   rollback:
+    environment: 'commit-app'
     name: Rollback on Failure
     needs: [resolve-toolchain, core, extension, publish]
     runs-on: ubuntu-26.04

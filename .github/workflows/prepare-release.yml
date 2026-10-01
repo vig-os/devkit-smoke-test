@@ -177,6 +177,7 @@ jobs:
           echo "Dry-run: $DRY_RUN"
 
   prepare:
+    environment: 'commit-app'
     name: Prepare Release Branch
     needs: validate
     runs-on: ubuntu-26.04
@@ -531,6 +532,7 @@ jobs:
   # erases the extension's work too, so an extension failure needs no new
   # machinery beyond listing `extension` in `needs`.
   rollback:
+    environment: 'commit-app'
     name: Roll Back Prepare Release on Failure or Cancellation
     needs: [validate, prepare, extension, open-pr]
     runs-on: ubuntu-26.04
