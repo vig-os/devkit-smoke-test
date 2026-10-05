@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.18.0** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -22,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 ## [1.18.0] - TBD
+
+### Changed
+
+- **Smoke-test deploy of 1.18.0** -- automated devcontainer release-pipeline validation; no functional changes
 
 ### Security
 
