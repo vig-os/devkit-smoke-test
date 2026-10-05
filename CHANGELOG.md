@@ -19,6 +19,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [1.18.0](https://github.com/vig-os/devkit-smoke-test/releases/tag/1.18.0) - 2026-10-05
+
+### Changed
+
+- **Smoke-test deploy of 1.18.0** -- automated devcontainer release-pipeline validation; no functional changes
+
+### Security
+
+- **Drop unused jupyter/science extras from the smoke payload** ([#438](https://github.com/vig-os/devkit-smoke-test/issues/438))
+  - Removes the `dev`, `science` and `all` optional extras and the `[tool.uv] constraint-dependencies` block, leftovers of the retired devkit Python template
+  - `uv.lock` shrinks from 122 to 15 packages, clearing all 14 open Dependabot alerts (anyio, tornado, mistune, jupyterlab, soupsieve)
+
 ## [1.17.0](https://github.com/vig-os/devkit-smoke-test/releases/tag/1.17.0) - 2026-09-28
 
 ### Changed

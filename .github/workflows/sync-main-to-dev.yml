@@ -51,7 +51,7 @@ permissions:
 jobs:
   resolve-toolchain:
     name: Resolve toolchain
-    runs-on: ubuntu-26.04
+    runs-on: ${{ vars.DEVKIT_CI_RESOLVE_RUNNER || 'ubuntu-26.04' }}
     timeout-minutes: 2
     outputs:
       mode: ${{ steps.resolve.outputs.mode }}
@@ -124,6 +124,7 @@ jobs:
           fi
 
   sync:
+    environment: 'commit-app'
     name: Merge main into dev via PR
     needs: [resolve-toolchain, check]
     if: needs.check.outputs.up_to_date != 'true'

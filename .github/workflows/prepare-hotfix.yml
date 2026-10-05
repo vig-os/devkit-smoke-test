@@ -76,7 +76,7 @@ permissions:
 jobs:
   resolve-toolchain:
     name: Resolve toolchain
-    runs-on: ubuntu-26.04
+    runs-on: ${{ vars.DEVKIT_CI_RESOLVE_RUNNER || 'ubuntu-26.04' }}
     timeout-minutes: 2
     outputs:
       mode: ${{ steps.resolve.outputs.mode }}
@@ -270,6 +270,7 @@ jobs:
           echo "  Dry-run: $DRY_RUN"
 
   prepare:
+    environment: 'commit-app'
     name: Prepare Hotfix Branch
     needs: [resolve-toolchain, validate]
     runs-on: ubuntu-26.04
@@ -558,6 +559,7 @@ jobs:
   # lives on the branch deleted here. A PR only exists once open-pr succeeded,
   # which is not a rollback path (and deleting a head branch closes its PR).
   rollback:
+    environment: 'commit-app'
     name: Roll Back Prepare Hotfix on Failure or Cancellation
     needs: [resolve-toolchain, validate, prepare, extension, open-pr]
     runs-on: ubuntu-26.04
