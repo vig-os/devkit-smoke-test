@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Smoke-test deploy of 1.19.0-rc4** -- automated devcontainer release-pipeline validation; no functional changes
-
 ### Deprecated
 
 ### Removed
@@ -20,6 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Security
+
+## [1.19.0] - TBD
+
+### Changed
+
+- **Smoke-test deploy of 1.19.0-rc4** -- automated devcontainer release-pipeline validation; no functional changes
+- **Smoke-test deploy of 1.19.0-rc1** -- automated devcontainer release-pipeline validation; no functional changes
 
 ## [1.18.2](https://github.com/vig-os/devkit-smoke-test/releases/tag/1.18.2) - 2026-11-03
 
@@ -34,12 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Smoke-test deploy of 1.18.1** -- automated devcontainer release-pipeline validation; no functional changes
 - **Smoke-test deploy of 1.18.1-rc1** -- automated devcontainer release-pipeline validation; no functional changes
-
-## [1.19.0] - TBD
-
-### Changed
-
-- **Smoke-test deploy of 1.19.0-rc1** -- automated devcontainer release-pipeline validation; no functional changes
 
 ## [1.18.0](https://github.com/vig-os/devkit-smoke-test/releases/tag/1.18.0) - 2026-10-05
 
