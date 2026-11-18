@@ -148,6 +148,7 @@ jobs:
         with:
           mode: ${{ needs.resolve-toolchain.outputs.mode }}
           devkit-version: ${{ needs.resolve-toolchain.outputs.image-tag }}
+          cachix-cache: ${{ vars.CACHIX_CACHE }}
 
       - name: Validate version against the latest stable tag on main
         id: vars
@@ -332,6 +333,7 @@ jobs:
         with:
           mode: ${{ needs.resolve-toolchain.outputs.mode }}
           devkit-version: ${{ needs.resolve-toolchain.outputs.image-tag }}
+          cachix-cache: ${{ vars.CACHIX_CACHE }}
 
       # The branch must fork from exactly the SHA validate vetted and the
       # checkout seeds from: a promote landing on main between the two jobs
@@ -507,6 +509,7 @@ jobs:
         with:
           mode: ${{ needs.resolve-toolchain.outputs.mode }}
           devkit-version: ${{ needs.resolve-toolchain.outputs.image-tag }}
+          cachix-cache: ${{ vars.CACHIX_CACHE }}
 
       - name: Create draft PR to main
         id: pr
@@ -642,6 +645,10 @@ jobs:
         with:
           mode: ${{ needs.resolve-toolchain.outputs.mode }}
           devkit-version: ${{ needs.resolve-toolchain.outputs.image-tag }}
+          cachix-cache: ${{ vars.CACHIX_CACHE }}
+          # Rollback/cleanup: gh, git, jq and retry only; never realise
+          # the dev-shell it may be rolling back from (#2010).
+          minimal: true
 
       - name: Delete partially created release branch
         id: rollback-branch
